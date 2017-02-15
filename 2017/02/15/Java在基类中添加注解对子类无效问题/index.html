@@ -10,7 +10,7 @@
     
     <title>
         
-            归档: 2017/1 | 
+            Java在基类中添加注解对子类无效问题 | 
         
         Moon &#39;s Blog
     </title>
@@ -48,7 +48,7 @@
     <!-- The Open Graph protocol -->
     <meta property="og:url" content="https://moonchenhaohui.github.io">
     <meta property="og:type" content="blog">
-    <meta property="og:title" content="归档: 2017/1 | Moon &#39;s Blog">
+    <meta property="og:title" content="Java在基类中添加注解对子类无效问题 | Moon &#39;s Blog">
     <meta property="og:description" content="杭飘Android程序猿。">
 
     <!--[if lte IE 9]>
@@ -200,142 +200,234 @@
                         </button>
                     
 
-                    <!-- Index Module -->
-<div class="material-index mdl-grid">
-    
-    <div class="locate-thumbnail-symbol"></div>
+                    <!-- Post TOC -->
 
     
-        
-            <!-- Paradox Thumbnail -->
-            <div class="post_entry-module mdl-card mdl-cell mdl-cell--12-col fade out">
-    <!-- Post Thumbnail -->
+    <!-- Back Button -->
+    <!--
+    <div class="material-back" id="backhome-div" tabindex="0">
+        <a class="mdl-button mdl-js-button mdl-js-ripple-effect mdl-button--icon"
+           href="#" onclick="window.history.back();return false;"
+           target="_self"
+           role="button"
+           data-upgraded=",MaterialButton,MaterialRipple">
+            <i class="material-icons" role="presentation">arrow_back</i>
+            <span class="mdl-button__ripple-container">
+                <span class="mdl-ripple"></span>
+            </span>
+        </a>
+    </div>
+    -->
+
+    <!-- Left aligned menu below button -->
+    <button id="post-toc-trigger-btn"
+        class="mdl-button mdl-js-button mdl-button--icon">
+        <i class="material-icons">format_list_numbered</i>
+    </button>
+
+    <ul class="post-toc-wrap mdl-menu mdl-menu--bottom-left mdl-js-menu mdl-js-ripple-effect" for="post-toc-trigger-btn">
+        <ol class="post-toc"><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#起"><span class="post-toc-number">1.</span> <span class="post-toc-text">起</span></a></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#Why"><span class="post-toc-number">2.</span> <span class="post-toc-text">Why?</span></a><ol class="post-toc-child"><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#总结"><span class="post-toc-number">2.1.</span> <span class="post-toc-text">总结</span></a></li></ol></li></ol>
+
+        <!--
+        <li class="mdl-menu__item">
+            Some Action
+        </li>
+        -->
+    </ul>
+
+
+
+
+<!-- Layouts -->
+
+    <!-- Post Module -->
+    <div class="material-post_container">
+
+        <div class="material-post mdl-grid">
+            <div class="mdl-card mdl-shadow--4dp mdl-cell mdl-cell--12-col">
+
+                <!-- Post Header(Thumbnail & Title) -->
+                
+    <!-- Paradox Post Header -->
     
         
             <!-- Random Thumbnail -->
             <div class="post_thumbnail-random mdl-card__media mdl-color-text--grey-50">
-        
-    
+            <script>
+    var randomNum = Math.floor(Math.random() * 19 + 1);
 
-        <!-- Post Title -->
-        <p class="article-headline-p"><a href="/2017/01/15/过年前的最后一周/">过年前的最后一周</a></p>
-    </div>
-
-    <!-- Post Excerpt -->
-    <div class="mdl-color-text--grey-600 mdl-card__supporting-text post_entry-content">
-        
-            回家  周五就可以...
-        
-        &nbsp;&nbsp;&nbsp;
-        <span>
-            <a href="/2017/01/15/过年前的最后一周/" target="_self">继续阅读</a>
-        </span>
-    </div>
-    <!-- Post_entry Info-->
-    <div id="post_entry-info">
-        <div id="post_entry-left-info" class="mdl-card__supporting-text meta mdl-color-text--grey-600 ">
-            <!-- Author Avatar -->
-            <div id="author-avatar">
-                <img src="https://avatars3.githubusercontent.com/u/10590273?v=3&amp;s=460" width="44px" height="44px" alt="MoonChen's avatar">
-            </div>
-            <div>
-                <strong>MoonChen</strong>
-                <span>1月 15, 2017</span>
-            </div>
-        </div>
-        <div id="post_entry-right-info">
-            <!-- Category -->
-            <span class="post_entry-category">
-                
-            </span>
-
-            
-
-            <!-- Post Views -->
-            <span class="post_entry-views">
-            </span>
-        </div>
-    </div>
-</div>
-
-        
-        
-    
-        
-            <!-- Paradox Thumbnail -->
-            <div class="post_entry-module mdl-card mdl-cell mdl-cell--12-col fade out">
-    <!-- Post Thumbnail -->
-    
-        <!-- Custom Thumbnail -->
-        <div class="post_thumbnail-custom mdl-card__media mdl-color-text--grey-50" style="background-image:url(http://oidnhvewg.bkt.clouddn.com/hello-2017.png)">
-    
-
-        <!-- Post Title -->
-        <p class="article-headline-p"><a href="/2017/01/15/Start-2017/">Hello,2017.</a></p>
-    </div>
-
-    <!-- Post Excerpt -->
-    <div class="mdl-color-text--grey-600 mdl-card__supporting-text post_entry-content">
-        
-              新的一年，小目标是让这个新的blog来记录下发生的事情，希望能维护好这个小地方呀。
-
-2017 ，加油 ！...
-        
-        &nbsp;&nbsp;&nbsp;
-        <span>
-            <a href="/2017/01/15/Start-2017/" target="_self">继续阅读</a>
-        </span>
-    </div>
-    <!-- Post_entry Info-->
-    <div id="post_entry-info">
-        <div id="post_entry-left-info" class="mdl-card__supporting-text meta mdl-color-text--grey-600 ">
-            <!-- Author Avatar -->
-            <div id="author-avatar">
-                <img src="https://avatars3.githubusercontent.com/u/10590273?v=3&amp;s=460" width="44px" height="44px" alt="MoonChen's avatar">
-            </div>
-            <div>
-                <strong>MoonChen</strong>
-                <span>1月 15, 2017</span>
-            </div>
-        </div>
-        <div id="post_entry-right-info">
-            <!-- Category -->
-            <span class="post_entry-category">
-                
-            </span>
-
-            
-
-            <!-- Post Views -->
-            <span class="post_entry-views">
-            </span>
-        </div>
-    </div>
-</div>
-
-        
-        
-    
-
-    
-
-    
-        <script>
-    var randomNum;
-
-    var locatePost = $('.locate-thumbnail-symbol').next();
-    for(var i = 0; i < 10; i++) {
-        randomNum = Math.floor(Math.random() * 19 + 1);
-
-        locatePost.children('.post_thumbnail-random').attr('id', 'random_thumbnail-'+randomNum);
-        locatePost.children('.post_thumbnail-random').css('background-image', 'url(' + '/img/random/material-' + randomNum + '.png' + ')')
-
-        locatePost = locatePost.next();
-    }
+    $('.post_thumbnail-random').css('background-image', 'url(' + '/img/random/material-' + randomNum + '.png' + ')');
 </script>
 
+        
+    
+            <p class="article-headline-p">
+                Java在基类中添加注解对子类无效问题
+            </p>
+        </div>
+
+
+
+
+
+                
+                    <!-- Paradox Post Info -->
+                    <div class="mdl-color-text--grey-700 mdl-card__supporting-text meta">
+
+    <!-- Author Avatar -->
+    <div id="author-avatar">
+        <img src="https://avatars3.githubusercontent.com/u/10590273?v=3&s=460" width="44px" height="44px" alt="Author Avatar"/>
+    </div>
+    <!-- Author Name & Date -->
+    <div>
+        <strong>MoonChen</strong>
+        <span>2月 15, 2017</span>
+    </div>
+
+    <div class="section-spacer"></div>
+
+    <!-- Favorite -->
+    <!--
+        <button id="article-functions-like-button" class="mdl-button mdl-js-button mdl-js-ripple-effect mdl-button--icon btn-like">
+            <i class="material-icons" role="presentation">favorite</i>
+            <span class="visuallyhidden">favorites</span>
+        </button>
+    -->
+
+    <!-- Qrcode -->
+    
+
+    <!-- Tags (bookmark) -->
+    
+    <button id="article-functions-viewtags-button" class="mdl-button mdl-js-button mdl-js-ripple-effect mdl-button--icon">
+        <i class="material-icons" role="presentation">bookmark</i>
+        <span class="visuallyhidden">bookmark</span>
+    </button>
+    <ul class="mdl-menu mdl-menu--bottom-right mdl-js-menu mdl-js-ripple-effect" for="article-functions-viewtags-button">
+        <li class="mdl-menu__item">
+        
+    </ul>
+    
+
+    <!-- Share -->
+    <button id="article-fuctions-share-button" class="mdl-button mdl-js-button mdl-js-ripple-effect mdl-button--icon">
+    <i class="material-icons" role="presentation">share</i>
+    <span class="visuallyhidden">share</span>
+</button>
+<ul class="mdl-menu mdl-menu--bottom-right mdl-js-menu mdl-js-ripple-effect" for="article-fuctions-share-button">
+    
+
+    
+
+    <!-- Share Weibo -->
+    
+        <a class="post_share-link" href="http://service.weibo.com/share/share.php?appkey=&title=Java在基类中添加注解对子类无效问题&url=https://moonchenhaohui.github.io//2017/02/15/Java在基类中添加注解对子类无效问题/index.html&pic=&searchPic=false&style=simple" target="_blank">
+            <li class="mdl-menu__item">
+                分享到微博
+            </li>
+        </a>
+    
+
+    <!-- Share Twitter -->
+    
+        <a class="post_share-link" href="https://twitter.com/intent/tweet?text=Java在基类中添加注解对子类无效问题&url=https://moonchenhaohui.github.io//2017/02/15/Java在基类中添加注解对子类无效问题/index.html&via=MoonChen" target="_blank">
+            <li class="mdl-menu__item">
+                分享到 Twitter
+            </li>
+        </a>
+    
+
+    <!-- Share Facebook -->
+    
+        <a class="post_share-link" href="https://www.facebook.com/sharer/sharer.php?u=https://moonchenhaohui.github.io//2017/02/15/Java在基类中添加注解对子类无效问题/index.html" target="_blank">
+            <li class="mdl-menu__item">
+                分享到 Facebook
+            </li>
+        </a>
+    
+
+    <!-- Share Google+ -->
+    
+        <a class="post_share-link" href="https://plus.google.com/share?url=https://moonchenhaohui.github.io//2017/02/15/Java在基类中添加注解对子类无效问题/index.html" target="_blank">
+            <li class="mdl-menu__item">
+                分享到 Google+
+            </li>
+        </a>
+    
+
+    <!-- Share LinkedIn -->
+    
+
+    <!-- Share QQ -->
+    
+
+    <!-- Share Telegram -->
+    
+</ul>
+
+</div>
+
+                
+
+                <!-- Post Content -->
+                <div id="post-content" class="markdown-Github mdl-color-text--grey-700 mdl-card__supporting-text fade out">
+    
+        <h2 id="起"><a href="#起" class="headerlink" title="起"></a>起</h2><p> 有项功能，需要对当前的<code>class</code>添加注解，由此来决定是否要开启功能。如下：</p>
+ <figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div></pre></td><td class="code"><pre><div class="line">@Retention(RetentionPolicy.RUNTIME)</div><div class="line">   public @interface Itest &#123;</div><div class="line">       int getInfo() default 1;</div><div class="line">   &#125;</div></pre></td></tr></table></figure>
+ <figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div></pre></td><td class="code"><pre><div class="line">@Itest</div><div class="line">public class A &#123;</div><div class="line">&#125;</div><div class="line">...</div><div class="line"></div><div class="line">Itest iTest = classA.getClass().getAnnotation(Itest.class);</div></pre></td></tr></table></figure>
+<p>问题出现在 当 <code>A</code>为父类时，子类<code>B</code>无法获取到这个注解。</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div></pre></td><td class="code"><pre><div class="line">@Itest</div><div class="line">   public class Parent &#123;&#125;</div><div class="line">   </div><div class="line">   public class Child extends Parent &#123;&#125;</div></pre></td></tr></table></figure>
+<p>如上，对<code>Parent</code>添加注解，使用<code>Child.class.getAnnotation(Itest.class)</code>则返回了<code>null</code>。</p>
+<h2 id="Why"><a href="#Why" class="headerlink" title="Why?"></a>Why?</h2><p>翻了下<code>getAnnotation(Class&lt;A&gt; annotationClass)</code>源码：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div></pre></td><td class="code"><pre><div class="line">/**</div><div class="line">     * @throws NullPointerException &#123;@inheritDoc&#125;</div><div class="line">     * @since 1.5</div><div class="line">     */</div><div class="line">    public &lt;A extends Annotation&gt; A getAnnotation(Class&lt;A&gt; annotationClass) &#123;</div><div class="line">        if (annotationClass == null)</div><div class="line">            throw new NullPointerException();</div><div class="line"></div><div class="line">        A annotation = getDeclaredAnnotation(annotationClass);</div><div class="line">        if (annotation != null) &#123;</div><div class="line">            return annotation;</div><div class="line">        &#125;</div><div class="line"></div><div class="line">        if (annotationClass.isDeclaredAnnotationPresent(Inherited.class)) &#123;</div><div class="line">            for (Class&lt;?&gt; sup = getSuperclass(); sup != null; sup = sup.getSuperclass()) &#123;</div><div class="line">                annotation = sup.getDeclaredAnnotation(annotationClass);</div><div class="line">                if (annotation != null) &#123;</div><div class="line">                    return annotation;</div><div class="line">                &#125;</div><div class="line">            &#125;</div><div class="line">        &#125;</div><div class="line"></div><div class="line">        return null;</div><div class="line">    &#125;</div></pre></td></tr></table></figure>
+<p>可以看到， <code>annotationClass.isDeclaredAnnotationPresent(Inherited.class)</code>。如果申明了<code>Inherited.class</code>注解，那么会递归的调用父类方法去查找注解。</p>
+<p>而每次查找则会调用<code>getDeclaredAnnotation</code>方法来查找。</p>
+<p>###getDeclaredAnnotation<br> 这是一个native方法，<a href="http://docs.oracle.com/javase/8/docs/api/java/lang/reflect/AnnotatedElement.html#getDeclaredAnnotation-java.lang.Class-" target="_blank" rel="external">java8</a> 上有对该函数的说明。</p>
+ <figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line"> Returns:</div><div class="line">this element&apos;s annotation for the specified annotation type if directly present on this element, else null</div></pre></td></tr></table></figure>
+<h3 id="总结"><a href="#总结" class="headerlink" title="总结"></a>总结</h3><p>对于<code>java.lang.annotation.Inherited</code> 表示可以从超类型中查找注解。</p>
+<p><code>getAnnotations</code><br><code>getAnnotationsByType(Class&lt;T&gt; annotationClass)</code><br><code>getAnnotation(Class&lt;A&gt; annotationClass)</code><br><code>isAnnotationPresent(Class&lt;? extends Annotation&gt; annotationType)</code></p>
+<p>在使用如上API时，如果指定了<code>Inherited</code>注解，则会在超类中查询 注解类型。</p>
+
+    
+
     
 </div>
+
+
+                
+
+                <!-- Post Comments -->
+                
+                    
+
+
+
+                
+            </div>
+
+            <!-- Post Prev & Next Nav -->
+            <nav class="material-nav mdl-color-text--grey-50 mdl-cell mdl-cell--12-col">
+    <!-- Prev Nav -->
+    
+
+    <!-- Section Spacer -->
+    <div class="section-spacer"></div>
+
+    <!-- Next Nav -->
+    
+        <a href="/2017/01/15/过年前的最后一周/" id="post_nav-older" class="next-content">
+            旧篇
+            &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+            <button class="mdl-button mdl-js-button mdl-js-ripple-effect mdl-button--icon mdl-color--white mdl-color-text--grey-900" role="presentation">
+                <i class="material-icons">arrow_forward</i>
+            </button>
+        </a>
+    
+</nav>
+
+        </div>
+    </div>
+
 
 
                     
