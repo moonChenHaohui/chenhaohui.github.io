@@ -1,0 +1,761 @@
+<!DOCTYPE html>
+<html>
+    <head>
+    <!--
+        © Material Theme
+        https://github.com/viosey/hexo-theme-material
+        Version: 1.2.6 -->
+
+    <!-- Title -->
+    
+    <title>
+        
+            获取View的截图View | DrawingCache到底干了什么？ | 
+        
+        Moon &#39;s Blog
+    </title>
+
+    <!-- Favicons -->
+    <link rel="icon shortcut" type="image/ico" href="/img/favicon.png">
+    <link rel="icon" sizes="192x192" href="/img/favicon.png">
+    <link rel="apple-touch-icon" href="/img/favicon.png">
+
+    <!-- Meta & Info -->
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="theme-color" content="#D32F2F">
+    <meta name="author" content="MoonChen">
+    <meta name="description" content="杭飘Android程序猿。">
+    <meta name="keywords" content="null">
+
+    <!--iOS -->
+    <meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no">
+    <meta name="apple-mobile-web-app-title" content="Title">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black">
+    <meta name="HandheldFriendly" content="True">
+    <meta name="MobileOptimized" content="480">
+
+    <!-- Add to homescreen for Chrome on Android -->
+    <meta name="mobile-web-app-capable" content="yes">
+
+    <!-- Add to homescreen for Safari on iOS -->
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black">
+    <meta name="apple-mobile-web-app-title" content="Moon &#39;s Blog">
+
+    <!-- The Open Graph protocol -->
+    <meta property="og:url" content="https://moonchenhaohui.github.io">
+    <meta property="og:type" content="blog">
+    <meta property="og:title" content="获取View的截图View | DrawingCache到底干了什么？ | Moon &#39;s Blog">
+    <meta property="og:description" content="杭飘Android程序猿。">
+
+    <!--[if lte IE 9]>
+        <link rel="stylesheet" href="/css/ie-blocker.css">
+
+        
+            <script src="/js/ie-blocker.zhCN.js"></script>
+        
+    <![endif]-->
+
+    <!-- Import CSS -->
+    <link rel="stylesheet" href="/css/material.min.css">
+    <link rel="stylesheet" href="/css/style.min.css">
+    <!-- Config CSS -->
+
+
+<!-- Other Styles -->
+<style>
+    body, html {
+        font-family: Roboto, "Helvetica Neue", Helvetica, "PingFang SC", "Hiragino Sans GB", "Microsoft YaHei", "微软雅黑", Arial, sans-serif;
+    }
+
+    a {
+        color: #F44336;
+    }
+
+    .mdl-card__media,
+    #search-label,
+    #search-form-label:after,
+    #scheme-Paradox .hot_tags-count,
+    #scheme-Paradox .sidebar_archives-count,
+    #scheme-Paradox .sidebar-colored .sidebar-header,
+    #scheme-Paradox .sidebar-colored .sidebar-badge{
+        background-color: #D32F2F !important;
+    }
+
+    /* Sidebar User Drop Down Menu Text Color */
+    #scheme-Paradox .sidebar-colored .sidebar-nav>.dropdown>.dropdown-menu>li>a:hover,
+    #scheme-Paradox .sidebar-colored .sidebar-nav>.dropdown>.dropdown-menu>li>a:focus {
+        color: #D32F2F !important;
+    }
+
+    #post_entry-right-info,
+    .sidebar-colored .sidebar-nav li:hover > a,
+    .sidebar-colored .sidebar-nav li:hover > a i,
+    .sidebar-colored .sidebar-nav li > a:hover,
+    .sidebar-colored .sidebar-nav li > a:hover i,
+    .sidebar-colored .sidebar-nav li > a:focus i,
+    .sidebar-colored .sidebar-nav > .open > a,
+    .sidebar-colored .sidebar-nav > .open > a:hover,
+    .sidebar-colored .sidebar-nav > .open > a:focus,
+    #ds-reset #ds-ctx .ds-ctx-entry .ds-ctx-head a {
+        color: #D32F2F !important;
+    }
+
+    .toTop {
+        background: #F44336 !important;
+    }
+
+    .material-layout .material-post>.material-nav,
+    .material-layout .material-index>.material-nav,
+    .material-nav a {
+        color: #F44336;
+    }
+
+    #scheme-Paradox .MD-burger-layer {
+        background-color: #F44336;
+    }
+
+    #scheme-Paradox #post-toc-trigger-btn {
+        color: #F44336;
+    }
+
+    .post-toc a:hover {
+        color: #F44336;
+        text-decoration: underline;
+    }
+</style>
+
+
+<!-- Theme Background Related-->
+
+    <style>
+        body{
+            background-color: #EAEAEF;
+        }
+
+        /* blog_info bottom background */
+        #scheme-Paradox .material-layout .something-else .mdl-card__supporting-text{
+            background-color: #fff;
+        }
+    </style>
+
+
+
+
+<!-- Fade Effect -->
+
+    <style>
+        .fade {
+            transition: all 800ms linear;
+            -webkit-transform: translate3d(0,0,0);
+            -moz-transform: translate3d(0,0,0);
+            -ms-transform: translate3d(0,0,0);
+            -o-transform: translate3d(0,0,0);
+            transform: translate3d(0,0,0);
+            opacity: 1;
+        }
+
+        .fade.out{
+            opacity: 0;
+        }
+    </style>
+
+
+    <script src="/js/jquery.min.js"></script>
+
+    <link rel="stylesheet" href="/css/highlight/solarized-white.css">
+
+    <!-- UC Browser Compatible-->
+    <script>
+        var agent = navigator.userAgent.toLowerCase();
+        if(agent.indexOf('ucbrowser')>0) {
+            document.write('<link rel="stylesheet" href="/css/uc.css">');
+            alert('由于 UC 浏览器使用极旧的内核，而本网站使用了一些新的特性。\n为了您能更好的浏览，推荐使用 Chrome 或 Firefox 浏览器。');
+        }
+    </script>
+
+    <!-- Custom Head -->
+    
+</head>
+
+
+    
+        <body id="scheme-Paradox">
+            <div class="material-layout  mdl-js-layout has-drawer is-upgraded">
+                
+
+                <!-- Main Container -->
+                <main class="material-layout__content" id="main">
+
+                    <!-- Top Anchor -->
+                    <div id="top"></div>
+
+                    
+                        <!-- Hamburger Button -->
+                        <button class="MD-burger-icon sidebar-toggle">
+                            <span class="MD-burger-layer"></span>
+                        </button>
+                    
+
+                    <!-- Post TOC -->
+
+    
+    <!-- Back Button -->
+    <!--
+    <div class="material-back" id="backhome-div" tabindex="0">
+        <a class="mdl-button mdl-js-button mdl-js-ripple-effect mdl-button--icon"
+           href="#" onclick="window.history.back();return false;"
+           target="_self"
+           role="button"
+           data-upgraded=",MaterialButton,MaterialRipple">
+            <i class="material-icons" role="presentation">arrow_back</i>
+            <span class="mdl-button__ripple-container">
+                <span class="mdl-ripple"></span>
+            </span>
+        </a>
+    </div>
+    -->
+
+    <!-- Left aligned menu below button -->
+    <button id="post-toc-trigger-btn"
+        class="mdl-button mdl-js-button mdl-button--icon">
+        <i class="material-icons">format_list_numbered</i>
+    </button>
+
+    <ul class="post-toc-wrap mdl-menu mdl-menu--bottom-left mdl-js-menu mdl-js-ripple-effect" for="post-toc-trigger-btn">
+        <ol class="post-toc"><li class="post-toc-item post-toc-level-1"><a class="post-toc-link" href="#如何获取View的截图"><span class="post-toc-number">1.</span> <span class="post-toc-text">如何获取View的截图</span></a></li><li class="post-toc-item post-toc-level-1"><a class="post-toc-link" href="#源码里是怎么说的？"><span class="post-toc-number">2.</span> <span class="post-toc-text">源码里是怎么说的？</span></a><ol class="post-toc-child"><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#1-view-setDrawingCacheEnabled"><span class="post-toc-number">2.1.</span> <span class="post-toc-text">1. view.setDrawingCacheEnabled</span></a></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#2-view-buildDrawingCache"><span class="post-toc-number">2.2.</span> <span class="post-toc-text">2. view.buildDrawingCache</span></a><ol class="post-toc-child"><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#处理view的信息-width、height、BackgroundColor、drawingCacheSize等"><span class="post-toc-number">2.2.1.</span> <span class="post-toc-text">处理view的信息(width、height、BackgroundColor、drawingCacheSize等)</span></a></li><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#处理失败的情况（如w、h获取失败，分配内存不足等）直接返回。"><span class="post-toc-number">2.2.2.</span> <span class="post-toc-text">处理失败的情况（如w、h获取失败，分配内存不足等）直接返回。</span></a></li><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#获取存储的mDrawingCache，销毁-如有-并创建新的bitmap。"><span class="post-toc-number">2.2.3.</span> <span class="post-toc-text">获取存储的mDrawingCache，销毁(如有)并创建新的bitmap。</span></a></li><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#创建Canvas，调用dispatchDraw-canvas-or-draw-canvas"><span class="post-toc-number">2.2.4.</span> <span class="post-toc-text">创建Canvas，调用dispatchDraw(canvas) or draw(canvas)</span></a></li><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#仔细阅读下来是不得不敬佩作者的小心思-比如attachInfo中的应用。第12行非常谨慎，因此也用了3行注释来表述意图。"><span class="post-toc-number">2.2.5.</span> <span class="post-toc-text">仔细阅读下来是不得不敬佩作者的小心思.比如attachInfo中的应用。第12行非常谨慎，因此也用了3行注释来表述意图。</span></a></li></ol></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#view-getDrawingCache"><span class="post-toc-number">2.3.</span> <span class="post-toc-text">view. getDrawingCache</span></a></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#回顾一下整体流程"><span class="post-toc-number">2.4.</span> <span class="post-toc-text">回顾一下整体流程</span></a></li></ol></li><li class="post-toc-item post-toc-level-1"><a class="post-toc-link" href="#总结"><span class="post-toc-number">3.</span> <span class="post-toc-text">总结</span></a></li></ol>
+
+        <!--
+        <li class="mdl-menu__item">
+            Some Action
+        </li>
+        -->
+    </ul>
+
+
+
+
+<!-- Layouts -->
+
+    <!-- Post Module -->
+    <div class="material-post_container">
+
+        <div class="material-post mdl-grid">
+            <div class="mdl-card mdl-shadow--4dp mdl-cell mdl-cell--12-col">
+
+                <!-- Post Header(Thumbnail & Title) -->
+                
+    <!-- Paradox Post Header -->
+    
+        
+            <!-- Random Thumbnail -->
+            <div class="post_thumbnail-random mdl-card__media mdl-color-text--grey-50">
+            <script>
+    var randomNum = Math.floor(Math.random() * 19 + 1);
+
+    $('.post_thumbnail-random').css('background-image', 'url(' + '/img/random/material-' + randomNum + '.png' + ')');
+</script>
+
+        
+    
+            <p class="article-headline-p">
+                获取View的截图View | DrawingCache到底干了什么？
+            </p>
+        </div>
+
+
+
+
+
+                
+                    <!-- Paradox Post Info -->
+                    <div class="mdl-color-text--grey-700 mdl-card__supporting-text meta">
+
+    <!-- Author Avatar -->
+    <div id="author-avatar">
+        <img src="https://avatars3.githubusercontent.com/u/10590273?v=3&s=460" width="44px" height="44px" alt="Author Avatar"/>
+    </div>
+    <!-- Author Name & Date -->
+    <div>
+        <strong>MoonChen</strong>
+        <span>2月 21, 2017</span>
+    </div>
+
+    <div class="section-spacer"></div>
+
+    <!-- Favorite -->
+    <!--
+        <button id="article-functions-like-button" class="mdl-button mdl-js-button mdl-js-ripple-effect mdl-button--icon btn-like">
+            <i class="material-icons" role="presentation">favorite</i>
+            <span class="visuallyhidden">favorites</span>
+        </button>
+    -->
+
+    <!-- Qrcode -->
+    
+
+    <!-- Tags (bookmark) -->
+    
+    <button id="article-functions-viewtags-button" class="mdl-button mdl-js-button mdl-js-ripple-effect mdl-button--icon">
+        <i class="material-icons" role="presentation">bookmark</i>
+        <span class="visuallyhidden">bookmark</span>
+    </button>
+    <ul class="mdl-menu mdl-menu--bottom-right mdl-js-menu mdl-js-ripple-effect" for="article-functions-viewtags-button">
+        <li class="mdl-menu__item">
+        
+    </ul>
+    
+
+    <!-- Share -->
+    <button id="article-fuctions-share-button" class="mdl-button mdl-js-button mdl-js-ripple-effect mdl-button--icon">
+    <i class="material-icons" role="presentation">share</i>
+    <span class="visuallyhidden">share</span>
+</button>
+<ul class="mdl-menu mdl-menu--bottom-right mdl-js-menu mdl-js-ripple-effect" for="article-fuctions-share-button">
+    
+
+    
+
+    <!-- Share Weibo -->
+    
+        <a class="post_share-link" href="http://service.weibo.com/share/share.php?appkey=&title=获取View的截图View | DrawingCache到底干了什么？&url=https://moonchenhaohui.github.io//2017/02/21/View-getDrawingCache到底干了什么？/index.html&pic=&searchPic=false&style=simple" target="_blank">
+            <li class="mdl-menu__item">
+                分享到微博
+            </li>
+        </a>
+    
+
+    <!-- Share Twitter -->
+    
+        <a class="post_share-link" href="https://twitter.com/intent/tweet?text=获取View的截图View | DrawingCache到底干了什么？&url=https://moonchenhaohui.github.io//2017/02/21/View-getDrawingCache到底干了什么？/index.html&via=MoonChen" target="_blank">
+            <li class="mdl-menu__item">
+                分享到 Twitter
+            </li>
+        </a>
+    
+
+    <!-- Share Facebook -->
+    
+        <a class="post_share-link" href="https://www.facebook.com/sharer/sharer.php?u=https://moonchenhaohui.github.io//2017/02/21/View-getDrawingCache到底干了什么？/index.html" target="_blank">
+            <li class="mdl-menu__item">
+                分享到 Facebook
+            </li>
+        </a>
+    
+
+    <!-- Share Google+ -->
+    
+        <a class="post_share-link" href="https://plus.google.com/share?url=https://moonchenhaohui.github.io//2017/02/21/View-getDrawingCache到底干了什么？/index.html" target="_blank">
+            <li class="mdl-menu__item">
+                分享到 Google+
+            </li>
+        </a>
+    
+
+    <!-- Share LinkedIn -->
+    
+
+    <!-- Share QQ -->
+    
+
+    <!-- Share Telegram -->
+    
+</ul>
+
+</div>
+
+                
+
+                <!-- Post Content -->
+                <div id="post-content" class="markdown-Github mdl-color-text--grey-700 mdl-card__supporting-text fade out">
+    
+        <h1 id="如何获取View的截图"><a href="#如何获取View的截图" class="headerlink" title="如何获取View的截图"></a>如何获取View的截图</h1><p>对于一个View 或是 ViewGroup，当我们希望获取它的视图（Bitmap），常用的方法有2种。</p>
+<ul>
+<li><ol>
+<li>DrawingCache<blockquote>
+<p>利用View 中提供的DrawingCache一些列方法，来获取缓存的视图，具体方法如下：</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div></pre></td><td class="code"><pre><div class="line"><span class="comment">//enable drawing cache</span></div><div class="line">view.setDrawingCacheEnabled(<span class="keyword">true</span>);</div><div class="line"><span class="comment">// Forces the drawing cache to be built if the drawing cache is invalid.</span></div><div class="line">view.buildDrawingCache();</div><div class="line"><span class="comment">//Returns the bitmap in which this view drawing is cached.</span></div><div class="line">Bitmap bitmap = view.getDrawingCache();</div></pre></td></tr></table></figure>
+</blockquote>
+</li>
+</ol>
+</li>
+<li><ol>
+<li>View.draw<blockquote>
+<p> 使用<code>view.draw(Canvas)</code>方法，将view的视图绘制在一个画布(Canvas)中。具体方法如下：</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div></pre></td><td class="code"><pre><div class="line">Bitmap bitmap = Bitmap.createBitmap(view.getWidth(), view.getHeight(),</div><div class="line">        Bitmap.Config.ARGB_8888);</div><div class="line">        bitmap.setDensity(getResources().getDisplayMetrics().densityDpi);  </div><div class="line">Canvas canvas = <span class="keyword">new</span> Canvas(bitmap);</div><div class="line"><span class="comment">//把view中的内容绘制在画布上    </span></div><div class="line">view.draw(canvas);</div><div class="line">canvas.setBitmap(<span class="keyword">null</span>);</div></pre></td></tr></table></figure>
+</blockquote>
+</li>
+</ol>
+</li>
+</ul>
+<h1 id="源码里是怎么说的？"><a href="#源码里是怎么说的？" class="headerlink" title="源码里是怎么说的？"></a>源码里是怎么说的？</h1><p> 我们先来看看<code>DrawingCache</code>这种方法。我们来逐步梳理一下。。</p>
+<h2 id="1-view-setDrawingCacheEnabled"><a href="#1-view-setDrawingCacheEnabled" class="headerlink" title="1. view.setDrawingCacheEnabled"></a>1. view.setDrawingCacheEnabled</h2>   <figure class="highlight java"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div></pre></td><td class="code"><pre><div class="line"><span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">setDrawingCacheEnabled</span><span class="params">(<span class="keyword">boolean</span> enabled)</span> </span>&#123;</div><div class="line">     mCachingFailed = <span class="keyword">false</span>;</div><div class="line">     setFlags(enabled ? DRAWING_CACHE_ENABLED : <span class="number">0</span>, DRAWING_CACHE_ENABLED);</div><div class="line"> &#125;</div></pre></td></tr></table></figure>
+<p>   唯一的操作是设置了一个标志位：<code>DRAWING_CACHE_ENABLED</code>，这个标志位的用途比较重要是在<code>getDrawingCache</code>方法中。<br>   <figure class="highlight java"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div></pre></td><td class="code"><pre><div class="line"><span class="function"><span class="keyword">public</span> Bitmap <span class="title">getDrawingCache</span><span class="params">(<span class="keyword">boolean</span> autoScale)</span> </span>&#123;</div><div class="line">     ...</div><div class="line">     <span class="keyword">if</span> ((mViewFlags &amp; DRAWING_CACHE_ENABLED) == DRAWING_CACHE_ENABLED) &#123;</div><div class="line">         buildDrawingCache(autoScale);</div><div class="line">     &#125;</div><div class="line">     ...</div><div class="line"> &#125;</div></pre></td></tr></table></figure></p>
+<p>   可以看到，如果不调用<code>setDrawingCacheEnabled(true)</code>，那么调用 <code>getDrawingCache(false)</code>不会触发<code>buildDrawingCache</code> 操作。 </p>
+<h2 id="2-view-buildDrawingCache"><a href="#2-view-buildDrawingCache" class="headerlink" title="2. view.buildDrawingCache"></a>2. view.buildDrawingCache</h2><p> 这步是对view进行正儿八经的“截图”了。主要的实现逻辑在<code>buildDrawingCacheImpl</code>方法中。以下是主要流程，已经对“不重要”的流程进行了删除。</p>
+<h3 id="处理view的信息-width、height、BackgroundColor、drawingCacheSize等"><a href="#处理view的信息-width、height、BackgroundColor、drawingCacheSize等" class="headerlink" title="处理view的信息(width、height、BackgroundColor、drawingCacheSize等)"></a>处理view的信息(width、height、BackgroundColor、drawingCacheSize等)</h3><figure class="highlight java"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">int</span> width = mRight - mLeft;</div><div class="line"><span class="keyword">int</span> height = mBottom - mTop;</div><div class="line">...</div><div class="line"><span class="keyword">final</span> <span class="keyword">int</span> drawingCacheBackgroundColor = mDrawingCacheBackgroundColor;</div><div class="line">...</div><div class="line"><span class="comment">//生成的bitmap大小</span></div><div class="line"><span class="keyword">final</span> <span class="keyword">long</span> projectedBitmapSize = width * height * (opaque &amp;&amp; !use32BitCache ? <span class="number">2</span> : <span class="number">4</span>);</div><div class="line"><span class="comment">//系统允许的最大大小</span></div><div class="line"><span class="keyword">final</span> <span class="keyword">long</span> drawingCacheSize =</div><div class="line">                ViewConfiguration.get(mContext).getScaledMaximumDrawingCacheSize();</div></pre></td></tr></table></figure>
+<h3 id="处理失败的情况（如w、h获取失败，分配内存不足等）直接返回。"><a href="#处理失败的情况（如w、h获取失败，分配内存不足等）直接返回。" class="headerlink" title="处理失败的情况（如w、h获取失败，分配内存不足等）直接返回。"></a>处理失败的情况（如w、h获取失败，分配内存不足等）直接返回。</h3><figure class="highlight java"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">if</span> (width &lt;= <span class="number">0</span> || height &lt;= <span class="number">0</span> || projectedBitmapSize &gt; drawingCacheSize) &#123;</div><div class="line">    <span class="keyword">if</span> (width &gt; <span class="number">0</span> &amp;&amp; height &gt; <span class="number">0</span>) &#123;</div><div class="line">    destroyDrawingCache();</div><div class="line">    ...</div><div class="line">    <span class="keyword">return</span>;</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<h3 id="获取存储的mDrawingCache，销毁-如有-并创建新的bitmap。"><a href="#获取存储的mDrawingCache，销毁-如有-并创建新的bitmap。" class="headerlink" title="获取存储的mDrawingCache，销毁(如有)并创建新的bitmap。"></a>获取存储的<code>mDrawingCache</code>，销毁(如有)并创建新的bitmap。</h3><p> View会储存2种bitmap：<code>mDrawingCache</code> &amp; <code>mUnscaledDrawingCache</code>。根据传入<code>buildDrawingCache(boolean autoScale)</code>的autoScale参数决定使用哪个。 </p>
+<p> 而<code>buildDrawingCache()</code>方法会调用<code>boolean autoScale(false)</code>。<br> <figure class="highlight java"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div></pre></td><td class="code"><pre><div class="line">Bitmap bitmap = autoScale ? mDrawingCache : mUnscaledDrawingCache;</div><div class="line"><span class="keyword">if</span> (bitmap == <span class="keyword">null</span> || bitmap.getWidth() != width || bitmap.getHeight() != height) &#123;</div><div class="line">   Bitmap.Config quality;</div><div class="line">   <span class="comment">//省略 set bitmap quality;</span></div><div class="line">   ...</div><div class="line">   <span class="comment">// Try to cleanup memory</span></div><div class="line">   <span class="keyword">if</span> (bitmap != <span class="keyword">null</span>) bitmap.recycle();</div><div class="line"></div><div class="line">   <span class="keyword">try</span> &#123;</div><div class="line">       bitmap = Bitmap.createBitmap(mResources.getDisplayMetrics(),</div><div class="line">               width, height, quality);</div><div class="line">       ...</div><div class="line">       </div><div class="line">   &#125; <span class="keyword">catch</span> (OutOfMemoryError e) &#123;</div><div class="line">       ...</div><div class="line">       <span class="keyword">return</span>;</div><div class="line">   &#125;</div><div class="line"> &#125;</div></pre></td></tr></table></figure></p>
+<h3 id="创建Canvas，调用dispatchDraw-canvas-or-draw-canvas"><a href="#创建Canvas，调用dispatchDraw-canvas-or-draw-canvas" class="headerlink" title="创建Canvas，调用dispatchDraw(canvas) or draw(canvas)"></a>创建<code>Canvas</code>，调用<code>dispatchDraw(canvas)</code> or <code>draw(canvas)</code></h3><blockquote>
+<p>什么？原来这也是Canvas的功劳，所以2个方法其实是同一个实现逻辑。上核心代码:<br> <figure class="highlight java"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div></pre></td><td class="code"><pre><div class="line">Canvas canvas;</div><div class="line">canvas = <span class="keyword">new</span> Canvas(bitmap);</div><div class="line">...</div><div class="line">computeScroll();</div><div class="line"><span class="keyword">final</span> <span class="keyword">int</span> restoreCount = canvas.save();</div><div class="line">...</div><div class="line">canvas.translate(-mScrollX, -mScrollY);</div><div class="line"><span class="keyword">if</span> ((mPrivateFlags &amp; PFLAG_SKIP_DRAW) == PFLAG_SKIP_DRAW) &#123;</div><div class="line">    ...</div><div class="line">    dispatchDraw(canvas);</div><div class="line">    ...</div><div class="line">&#125; <span class="keyword">else</span> &#123;</div><div class="line">    draw(canvas);</div><div class="line"></div><div class="line">canvas.restoreToCount(restoreCount);</div><div class="line">canvas.setBitmap(<span class="keyword">null</span>);</div></pre></td></tr></table></figure></p>
+</blockquote>
+<p>至此，<code>mDrawingCache</code>或<code>mUnscaledDrawingCache</code>中已经有一份bitmp，<code>view.buildDrawingCache</code>职责完成。</p>
+<h3 id="仔细阅读下来是不得不敬佩作者的小心思-比如attachInfo中的应用。第12行非常谨慎，因此也用了3行注释来表述意图。"><a href="#仔细阅读下来是不得不敬佩作者的小心思-比如attachInfo中的应用。第12行非常谨慎，因此也用了3行注释来表述意图。" class="headerlink" title="仔细阅读下来是不得不敬佩作者的小心思.比如attachInfo中的应用。第12行非常谨慎，因此也用了3行注释来表述意图。"></a>仔细阅读下来是不得不敬佩作者的小心思.比如attachInfo中的应用。第12行非常谨慎，因此也用了3行注释来表述意图。</h3> <figure class="highlight java"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div></pre></td><td class="code"><pre><div class="line"> <span class="keyword">if</span> (attachInfo != <span class="keyword">null</span>) &#123;</div><div class="line">    canvas = attachInfo.mCanvas;</div><div class="line">    <span class="keyword">if</span> (canvas == <span class="keyword">null</span>) &#123;</div><div class="line">        canvas = <span class="keyword">new</span> Canvas();</div><div class="line">    &#125;</div><div class="line">    attachInfo.mCanvas = <span class="keyword">null</span>;</div><div class="line">&#125; <span class="keyword">else</span> &#123;</div><div class="line">    <span class="comment">// Temporarily clobber the cached Canvas in case one of our children</span></div><div class="line">    <span class="comment">// is also using a drawing cache. Without this, the children would</span></div><div class="line">    <span class="comment">// steal the canvas by attaching their own bitmap to it and bad, bad</span></div><div class="line">    <span class="comment">// thing would happen (invisible views, corrupted drawings, etc.)</span></div><div class="line">    canvas = <span class="keyword">new</span> Canvas(bitmap);</div><div class="line">&#125;</div><div class="line"><span class="comment">//do something</span></div><div class="line"></div><div class="line"><span class="keyword">if</span> (attachInfo != nul</div><div class="line">    attachInfo.mCanvas = canvas;</div></pre></td></tr></table></figure>
+<h2 id="view-getDrawingCache"><a href="#view-getDrawingCache" class="headerlink" title="view. getDrawingCache"></a>view. getDrawingCache</h2><p>这个方法指责比较单一，根据autoScale参数，返回 不同的DrawingCache.<br><figure class="highlight java"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div></pre></td><td class="code"><pre><div class="line"><span class="function"><span class="keyword">public</span> Bitmap <span class="title">getDrawingCache</span><span class="params">(<span class="keyword">boolean</span> autoScale)</span> </span>&#123;</div><div class="line">    <span class="keyword">if</span> ((mViewFlags &amp; WILL_NOT_CACHE_DRAWING) == WILL_NOT_CACHE_DRAWING) &#123;</div><div class="line">        <span class="keyword">return</span> <span class="keyword">null</span>;</div><div class="line">    &#125;</div><div class="line">    <span class="keyword">if</span> ((mViewFlags &amp; DRAWING_CACHE_ENABLED) == DRAWING_CACHE_ENABLED) &#123;</div><div class="line">        buildDrawingCache(autoScale);</div><div class="line">    &#125;</div><div class="line">    <span class="keyword">return</span> autoScale ? mDrawingCache : mUnscaledDrawingCache;</div><div class="line">&#125;</div></pre></td></tr></table></figure></p>
+<h2 id="回顾一下整体流程"><a href="#回顾一下整体流程" class="headerlink" title="回顾一下整体流程"></a>回顾一下整体流程</h2><p> <img src="http://oidnhvewg.bkt.clouddn.com/sp" alt="img"></p>
+<h1 id="总结"><a href="#总结" class="headerlink" title="总结"></a>总结</h1><ol>
+<li>前者提到的2种方法，其实都是借助Canvas来获取bitmap。</li>
+<li>当view没有添加到UI中，getDrawingCache=null 的原因是在 <code>buildDrawingCache</code>时，无法获取到正确的view 信息(由于没有进行measure、layout操作，无法得到正确的width\height)，直接返回null。</li>
+</ol>
+<blockquote>
+<p>下篇文章，将会来分析一下Canvas是如何获取View中的bitmap的。</p>
+</blockquote>
+
+    
+
+    
+</div>
+
+
+                
+
+                <!-- Post Comments -->
+                
+                    
+
+
+
+                
+            </div>
+
+            <!-- Post Prev & Next Nav -->
+            <nav class="material-nav mdl-color-text--grey-50 mdl-cell mdl-cell--12-col">
+    <!-- Prev Nav -->
+    
+
+    <!-- Section Spacer -->
+    <div class="section-spacer"></div>
+
+    <!-- Next Nav -->
+    
+        <a href="/2017/02/15/Java在基类中添加注解对子类无效问题/" id="post_nav-older" class="next-content">
+            旧篇
+            &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+            <button class="mdl-button mdl-js-button mdl-js-ripple-effect mdl-button--icon mdl-color--white mdl-color-text--grey-900" role="presentation">
+                <i class="material-icons">arrow_forward</i>
+            </button>
+        </a>
+    
+</nav>
+
+        </div>
+    </div>
+
+
+
+                    
+                        <!-- Overlay For Active Sidebar -->
+<div class="sidebar-overlay"></div>
+
+<!-- Material sidebar -->
+<aside id="sidebar" class="sidebar sidebar-colored sidebar-fixed-left" role="navigation">
+    <div id="sidebar-main">
+        <!-- Sidebar Header -->
+        <div class="sidebar-header header-cover" style="background-image: url();">
+    <!-- Top bar -->
+    <div class="top-bar"></div>
+
+    <!-- Sidebar toggle button -->
+    <button type="button" class="sidebar-toggle mdl-button mdl-js-button mdl-js-ripple-effect mdl-button--icon" style="display: initial;" data-upgraded=",MaterialButton,MaterialRipple">
+        <i class="material-icons">clear_all</i>
+        <span class="mdl-button__ripple-container">
+            <span class="mdl-ripple">
+            </span>
+        </span>
+    </button>
+
+    <!-- Sidebar Avatar -->
+    <div class="sidebar-image">
+        <img src="https://avatars3.githubusercontent.com/u/10590273?v=3&amp;s=460" alt="MoonChen's avatar">
+    </div>
+
+    <!-- Sidebar Email -->
+    <a data-toggle="dropdown" class="sidebar-brand" href="#settings-dropdown">
+        moon4chen@163.com
+        <b class="caret"></b>
+    </a>
+</div>
+
+
+        <!-- Sidebar Navigation  -->
+        <ul class="nav sidebar-nav">
+    <!-- User dropdown  -->
+    <li class="dropdown">
+        <ul id="settings-dropdown" class="dropdown-menu">
+            
+        </ul>
+    </li>
+
+    <!-- Homepage -->
+    <li id="sidebar-first-li">
+        <a href="/" target="_self">
+            <i class="material-icons sidebar-material-icons">home</i>
+            主页
+        </a>
+    </li>
+
+    <!-- I'm Feeling Lucky -->
+    <!--
+    <li class="dropdown">
+        <a href="" target="_self">
+            <i class="material-icons sidebar-material-icons">explore</i>
+             sidebar.imlucky
+        </a>
+    </li>
+    -->
+
+    <!-- Archives  -->
+    <li class="dropdown">
+        <a href="#" class="ripple-effect dropdown-toggle" data-toggle="dropdown">
+            <i class="material-icons sidebar-material-icons">inbox</i>
+             归档
+            <b class="caret"></b>
+        </a>
+        <ul class="dropdown-menu">
+            <li>
+            <a class="sidebar_archives-link" href="/archives/2017/02/">二月 2017<span class="sidebar_archives-count">2</span></a></li><li><a class="sidebar_archives-link" href="/archives/2017/01/">一月 2017<span class="sidebar_archives-count">2</span></a>
+        </ul>
+    </li>
+
+    <!-- Categories  -->
+    
+
+    <!-- Divider -->
+    <li class="divider"></li>
+
+
+    <!-- Pages  -->
+  	
+
+    <!-- Article Numebr  -->
+    <li>
+        <a href="/archives">
+            文章总数
+            <span class="sidebar-badge">4</span>
+        </a>
+    </li>
+</ul>
+
+
+        <!-- Sidebar Divider -->
+        <div class="sidebar-divider"></div>
+
+        <!-- Sidebar Footer -->
+        <!--
+I'm glad you use this theme, the development is no so easy, I hope you can keep the copyright, I will thank you so much.
+If you still want to delete the copyrights, could you still retain the first one? Which namely "Theme Material"
+It will not impact the appearance and can give developers a lot of support :)
+
+很高兴您使用并喜欢该主题，开发不易 十分谢谢与希望您可以保留一下版权声明。
+如果您仍然想删除的话 能否只保留第一项呢？即 "Theme Material"
+它不会影响美观并可以给开发者很大的支持和动力。 :)
+-->
+
+<!-- Theme Material -->
+<a href="https://github.com/viosey/hexo-theme-material"  class="sidebar-footer-text-a" target="_blank">
+    <div class="sidebar-text mdl-button mdl-js-button mdl-js-ripple-effect sidebar-footer-text-div" data-upgraded=",MaterialButton,MaterialRipple">
+        主题 - Material
+        <span class="sidebar-badge badge-circle">i</span>
+    </div>
+</a>
+
+<!-- Help & Support -->
+<!--
+<a href="mailto:hiviosey@gmail.com" class="sidebar-footer-text-a">
+    <div class="sidebar-text mdl-button mdl-js-button mdl-js-ripple-effect sidebar-footer-text-div" data-upgraded=",MaterialButton,MaterialRipple">
+    sidebar.help
+    <span class="mdl-button__ripple-container">
+      <span class="mdl-ripple"></span>
+    </span>
+  </div>
+</a>
+-->
+
+<!-- Feedback -->
+<!--
+<a href="https://github.com/viosey/hexo-theme-material/issues" target="_blank" class="sidebar-footer-text-a">
+    <div class="sidebar-text mdl-button mdl-js-button mdl-js-ripple-effect sidebar-footer-text-div" data-upgraded=",MaterialButton,MaterialRipple">
+         sidebar.feedback
+                    <span class="mdl-button__ripple-container"><span class="mdl-ripple"></span></span></div>
+</a>
+-->
+
+<!-- Abount Theme -->
+<!--
+<a href="https://blog.viosey.com/index.php/Material.html" target="_blank" class="sidebar-footer-text-a">
+    <div class="sidebar-text mdl-button mdl-js-button mdl-js-ripple-effect sidebar-footer-text-div" data-upgraded=",MaterialButton,MaterialRipple">
+         sidebar.about_theme
+        <span class="mdl-button__ripple-container"><span class="mdl-ripple"></span></span></div>
+</a>-->
+
+    </div>
+
+    <!-- Sidebar Sponsor -->
+    
+
+</aside>
+
+                    
+
+                    
+                        <!-- Footer Top Button -->
+                        <div class="toTop-wrap">
+    <a href="#top" class="toTop">
+        <i class="material-icons footer_top-i">expand_less</i>
+    </a>
+</div>
+
+                    
+
+                    <!--Footer-->
+<footer class="mdl-mini-footer" id="bottom">
+    
+        <!-- Paradox Footer Left Section -->
+        <div class="mdl-mini-footer--left-section sns-list">
+    <!-- Twitter -->
+    
+
+    <!-- Facebook -->
+    
+
+    <!-- Google + -->
+    
+
+    <!-- Weibo -->
+    
+
+    <!-- Instagram -->
+    
+
+    <!-- Tumblr -->
+    
+
+    <!-- Github -->
+    
+        <a href="https://github.com/moonChenHaohui" target="_blank">
+            <button class="mdl-mini-footer--social-btn social-btn" style="background-image: url(/img/footer/footer_ico-github.png);">
+                <span class="visuallyhidden">Github</span>
+            </button><!--
+     --></a>
+    
+
+    <!-- LinkedIn -->
+    
+
+    <!-- Zhihu -->
+    
+
+    <!-- Bilibili -->
+    
+
+    <!-- Telegram -->
+    
+</div>
+
+
+        <!--Copyright-->
+        <div id="copyright">
+            Copyright&nbsp;©&nbsp;
+            <script type="text/javascript">
+                var fd = new Date();
+                document.write(fd.getFullYear());
+            </script>
+            &nbsp;Moon 's Blog
+        </div>
+
+        <!-- Paradox Footer Right Section -->
+
+        <!--
+        I am glad you use this theme, the development is no so easy, I hope you can keep the copyright.
+        It will not impact the appearance and can give developers a lot of support :)
+
+        很高兴您使用该主题，开发不易，希望您可以保留一下版权声明。
+        它不会影响美观并可以给开发者很大的支持。 :)
+        -->
+
+        <div class="mdl-mini-footer--right-section">
+            <div>
+                <div class="footer-develop-div">Powered by <a href="https://hexo.io" target="_blank" class="footer-develop-a">Hexo</a></div>
+                <div class="footer-develop-div">Theme - <a href="https://github.com/viosey/hexo-theme-material" target="_blank" class="footer-develop-a">Material</a></div>
+            </div>
+        </div>
+    
+</footer>
+
+
+                    <!-- Import File -->
+<script src="/js/highlight.min.js"></script>
+<script src="/js/js.min.js"></script>
+<script src="/js/nprogress.js"></script>
+
+<script type="text/javascript">
+    NProgress.configure({
+        showSpinner: true
+    });
+    NProgress.start();
+
+    $('#nprogress .bar').css({
+        'background': '#FFCDD2'
+    });
+    $('#nprogress .peg').css({
+        'box-shadow': '0 0 10px #FFCDD2, 0 0 15px #FFCDD2'
+    });
+    $('#nprogress .spinner-icon').css({
+        'border-top-color': '#FFCDD2',
+        'border-left-color': '#FFCDD2'
+    });
+
+    setTimeout(function() {
+        NProgress.done();
+        $('.fade').removeClass('out');
+    }, 800);
+</script>
+
+
+
+
+
+
+
+
+
+
+
+
+
+<!-- Swiftye -->
+
+
+<!-- Local Search-->
+
+
+<!-- Window Load-->
+<script>
+    $(window).load(function() {
+        // Post_Toc parent position fixed
+        $('.post-toc-wrap').parent('.mdl-menu__container').css('position', 'fixed');
+    });
+</script>
+
+<!-- MathJax Load-->
+
+
+                </main>
+            </div>
+        </body>
+    
+</html>
