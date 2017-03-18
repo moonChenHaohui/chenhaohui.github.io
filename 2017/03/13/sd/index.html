@@ -1,0 +1,811 @@
+<!DOCTYPE html>
+<html>
+    <head>
+    <!--
+        © Material Theme
+        https://github.com/viosey/hexo-theme-material
+        Version: 1.2.6 -->
+
+    <!-- Title -->
+    
+    <title>
+        
+            Lottie动画库 Android 端源码浅析 | 
+        
+        Moon &#39;s Blog
+    </title>
+
+    <!-- Favicons -->
+    <link rel="icon shortcut" type="image/ico" href="/img/favicon.png">
+    <link rel="icon" sizes="192x192" href="/img/favicon.png">
+    <link rel="apple-touch-icon" href="/img/favicon.png">
+
+    <!-- Meta & Info -->
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="theme-color" content="#D32F2F">
+    <meta name="author" content="MoonChen">
+    <meta name="description" content="杭飘Android程序猿。">
+    <meta name="keywords" content="null">
+
+    <!--iOS -->
+    <meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no">
+    <meta name="apple-mobile-web-app-title" content="Title">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black">
+    <meta name="HandheldFriendly" content="True">
+    <meta name="MobileOptimized" content="480">
+
+    <!-- Add to homescreen for Chrome on Android -->
+    <meta name="mobile-web-app-capable" content="yes">
+
+    <!-- Add to homescreen for Safari on iOS -->
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black">
+    <meta name="apple-mobile-web-app-title" content="Moon &#39;s Blog">
+
+    <!-- The Open Graph protocol -->
+    <meta property="og:url" content="https://moonchenhaohui.github.io">
+    <meta property="og:type" content="blog">
+    <meta property="og:title" content="Lottie动画库 Android 端源码浅析 | Moon &#39;s Blog">
+    <meta property="og:description" content="杭飘Android程序猿。">
+
+    <!--[if lte IE 9]>
+        <link rel="stylesheet" href="/css/ie-blocker.css">
+
+        
+            <script src="/js/ie-blocker.zhCN.js"></script>
+        
+    <![endif]-->
+
+    <!-- Import CSS -->
+    <link rel="stylesheet" href="/css/material.min.css">
+    <link rel="stylesheet" href="/css/style.min.css">
+    <!-- Config CSS -->
+
+
+<!-- Other Styles -->
+<style>
+    body, html {
+        font-family: Roboto, "Helvetica Neue", Helvetica, "PingFang SC", "Hiragino Sans GB", "Microsoft YaHei", "微软雅黑", Arial, sans-serif;
+    }
+
+    a {
+        color: #F44336;
+    }
+
+    .mdl-card__media,
+    #search-label,
+    #search-form-label:after,
+    #scheme-Paradox .hot_tags-count,
+    #scheme-Paradox .sidebar_archives-count,
+    #scheme-Paradox .sidebar-colored .sidebar-header,
+    #scheme-Paradox .sidebar-colored .sidebar-badge{
+        background-color: #D32F2F !important;
+    }
+
+    /* Sidebar User Drop Down Menu Text Color */
+    #scheme-Paradox .sidebar-colored .sidebar-nav>.dropdown>.dropdown-menu>li>a:hover,
+    #scheme-Paradox .sidebar-colored .sidebar-nav>.dropdown>.dropdown-menu>li>a:focus {
+        color: #D32F2F !important;
+    }
+
+    #post_entry-right-info,
+    .sidebar-colored .sidebar-nav li:hover > a,
+    .sidebar-colored .sidebar-nav li:hover > a i,
+    .sidebar-colored .sidebar-nav li > a:hover,
+    .sidebar-colored .sidebar-nav li > a:hover i,
+    .sidebar-colored .sidebar-nav li > a:focus i,
+    .sidebar-colored .sidebar-nav > .open > a,
+    .sidebar-colored .sidebar-nav > .open > a:hover,
+    .sidebar-colored .sidebar-nav > .open > a:focus,
+    #ds-reset #ds-ctx .ds-ctx-entry .ds-ctx-head a {
+        color: #D32F2F !important;
+    }
+
+    .toTop {
+        background: #F44336 !important;
+    }
+
+    .material-layout .material-post>.material-nav,
+    .material-layout .material-index>.material-nav,
+    .material-nav a {
+        color: #F44336;
+    }
+
+    #scheme-Paradox .MD-burger-layer {
+        background-color: #F44336;
+    }
+
+    #scheme-Paradox #post-toc-trigger-btn {
+        color: #F44336;
+    }
+
+    .post-toc a:hover {
+        color: #F44336;
+        text-decoration: underline;
+    }
+</style>
+
+
+<!-- Theme Background Related-->
+
+    <style>
+        body{
+            background-color: #EAEAEF;
+        }
+
+        /* blog_info bottom background */
+        #scheme-Paradox .material-layout .something-else .mdl-card__supporting-text{
+            background-color: #fff;
+        }
+    </style>
+
+
+
+
+<!-- Fade Effect -->
+
+    <style>
+        .fade {
+            transition: all 800ms linear;
+            -webkit-transform: translate3d(0,0,0);
+            -moz-transform: translate3d(0,0,0);
+            -ms-transform: translate3d(0,0,0);
+            -o-transform: translate3d(0,0,0);
+            transform: translate3d(0,0,0);
+            opacity: 1;
+        }
+
+        .fade.out{
+            opacity: 0;
+        }
+    </style>
+
+
+    <script src="/js/jquery.min.js"></script>
+
+    <link rel="stylesheet" href="/css/highlight/solarized-white.css">
+
+    <!-- UC Browser Compatible-->
+    <script>
+        var agent = navigator.userAgent.toLowerCase();
+        if(agent.indexOf('ucbrowser')>0) {
+            document.write('<link rel="stylesheet" href="/css/uc.css">');
+            alert('由于 UC 浏览器使用极旧的内核，而本网站使用了一些新的特性。\n为了您能更好的浏览，推荐使用 Chrome 或 Firefox 浏览器。');
+        }
+    </script>
+
+    <!-- Custom Head -->
+    
+</head>
+
+
+    
+        <body id="scheme-Paradox">
+            <div class="material-layout  mdl-js-layout has-drawer is-upgraded">
+                
+
+                <!-- Main Container -->
+                <main class="material-layout__content" id="main">
+
+                    <!-- Top Anchor -->
+                    <div id="top"></div>
+
+                    
+                        <!-- Hamburger Button -->
+                        <button class="MD-burger-icon sidebar-toggle">
+                            <span class="MD-burger-layer"></span>
+                        </button>
+                    
+
+                    <!-- Post TOC -->
+
+    
+    <!-- Back Button -->
+    <!--
+    <div class="material-back" id="backhome-div" tabindex="0">
+        <a class="mdl-button mdl-js-button mdl-js-ripple-effect mdl-button--icon"
+           href="#" onclick="window.history.back();return false;"
+           target="_self"
+           role="button"
+           data-upgraded=",MaterialButton,MaterialRipple">
+            <i class="material-icons" role="presentation">arrow_back</i>
+            <span class="mdl-button__ripple-container">
+                <span class="mdl-ripple"></span>
+            </span>
+        </a>
+    </div>
+    -->
+
+    <!-- Left aligned menu below button -->
+    <button id="post-toc-trigger-btn"
+        class="mdl-button mdl-js-button mdl-button--icon">
+        <i class="material-icons">format_list_numbered</i>
+    </button>
+
+    <ul class="post-toc-wrap mdl-menu mdl-menu--bottom-left mdl-js-menu mdl-js-ripple-effect" for="post-toc-trigger-btn">
+        <ol class="post-toc"><li class="post-toc-item post-toc-level-1"><a class="post-toc-link" href="#惊艳的Lottie"><span class="post-toc-number">1.</span> <span class="post-toc-text">惊艳的Lottie</span></a></li><li class="post-toc-item post-toc-level-1"><a class="post-toc-link" href="#思路"><span class="post-toc-number">2.</span> <span class="post-toc-text">思路</span></a></li><li class="post-toc-item post-toc-level-1"><a class="post-toc-link" href="#Lottie-Android-Useage"><span class="post-toc-number">3.</span> <span class="post-toc-text">Lottie Android Useage</span></a></li><li class="post-toc-item post-toc-level-1"><a class="post-toc-link" href="#原理浅析"><span class="post-toc-number">4.</span> <span class="post-toc-text">原理浅析</span></a><ol class="post-toc-child"><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#绘制"><span class="post-toc-number">4.1.</span> <span class="post-toc-text">绘制</span></a><ol class="post-toc-child"><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#LottieDrawable"><span class="post-toc-number">4.1.1.</span> <span class="post-toc-text">LottieDrawable</span></a></li><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#让Drawable“动起来”"><span class="post-toc-number">4.1.2.</span> <span class="post-toc-text">让Drawable“动起来”</span></a><ol class="post-toc-child"><li class="post-toc-item post-toc-level-4"><a class="post-toc-link" href="#setProgerss"><span class="post-toc-number">4.1.2.1.</span> <span class="post-toc-text">setProgerss</span></a></li><li class="post-toc-item post-toc-level-4"><a class="post-toc-link" href="#BaseKeyframeAnimation"><span class="post-toc-number">4.1.2.2.</span> <span class="post-toc-text">BaseKeyframeAnimation</span></a></li><li class="post-toc-item post-toc-level-4"><a class="post-toc-link" href="#KeyFrame"><span class="post-toc-number">4.1.2.3.</span> <span class="post-toc-text">KeyFrame</span></a></li><li class="post-toc-item post-toc-level-4"><a class="post-toc-link" href="#setTransform"><span class="post-toc-number">4.1.2.4.</span> <span class="post-toc-text">setTransform</span></a></li></ol></li></ol></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#JSON-解析"><span class="post-toc-number">4.2.</span> <span class="post-toc-text">JSON 解析</span></a><ol class="post-toc-child"><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#buildLayersForComposition"><span class="post-toc-number">4.2.1.</span> <span class="post-toc-text">buildLayersForComposition</span></a></li><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#LayerView"><span class="post-toc-number">4.2.2.</span> <span class="post-toc-text">LayerView</span></a></li></ol></li></ol></li><li class="post-toc-item post-toc-level-1"><a class="post-toc-link" href="#总结"><span class="post-toc-number">5.</span> <span class="post-toc-text">总结</span></a></li><li class="post-toc-item post-toc-level-1"><a class="post-toc-link" href="#写在最后"><span class="post-toc-number">6.</span> <span class="post-toc-text">写在最后</span></a></li></ol>
+
+        <!--
+        <li class="mdl-menu__item">
+            Some Action
+        </li>
+        -->
+    </ul>
+
+
+
+
+<!-- Layouts -->
+
+    <!-- Post Module -->
+    <div class="material-post_container">
+
+        <div class="material-post mdl-grid">
+            <div class="mdl-card mdl-shadow--4dp mdl-cell mdl-cell--12-col">
+
+                <!-- Post Header(Thumbnail & Title) -->
+                
+    <!-- Paradox Post Header -->
+    
+        
+            <!-- Random Thumbnail -->
+            <div class="post_thumbnail-random mdl-card__media mdl-color-text--grey-50">
+            <script>
+    var randomNum = Math.floor(Math.random() * 19 + 1);
+
+    $('.post_thumbnail-random').css('background-image', 'url(' + '/img/random/material-' + randomNum + '.png' + ')');
+</script>
+
+        
+    
+            <p class="article-headline-p">
+                Lottie动画库 Android 端源码浅析
+            </p>
+        </div>
+
+
+
+
+
+                
+                    <!-- Paradox Post Info -->
+                    <div class="mdl-color-text--grey-700 mdl-card__supporting-text meta">
+
+    <!-- Author Avatar -->
+    <div id="author-avatar">
+        <img src="https://avatars3.githubusercontent.com/u/10590273?v=3&s=460" width="44px" height="44px" alt="Author Avatar"/>
+    </div>
+    <!-- Author Name & Date -->
+    <div>
+        <strong>MoonChen</strong>
+        <span>3月 13, 2017</span>
+    </div>
+
+    <div class="section-spacer"></div>
+
+    <!-- Favorite -->
+    <!--
+        <button id="article-functions-like-button" class="mdl-button mdl-js-button mdl-js-ripple-effect mdl-button--icon btn-like">
+            <i class="material-icons" role="presentation">favorite</i>
+            <span class="visuallyhidden">favorites</span>
+        </button>
+    -->
+
+    <!-- Qrcode -->
+    
+
+    <!-- Tags (bookmark) -->
+    
+    <button id="article-functions-viewtags-button" class="mdl-button mdl-js-button mdl-js-ripple-effect mdl-button--icon">
+        <i class="material-icons" role="presentation">bookmark</i>
+        <span class="visuallyhidden">bookmark</span>
+    </button>
+    <ul class="mdl-menu mdl-menu--bottom-right mdl-js-menu mdl-js-ripple-effect" for="article-functions-viewtags-button">
+        <li class="mdl-menu__item">
+        
+    </ul>
+    
+
+    <!-- Share -->
+    <button id="article-fuctions-share-button" class="mdl-button mdl-js-button mdl-js-ripple-effect mdl-button--icon">
+    <i class="material-icons" role="presentation">share</i>
+    <span class="visuallyhidden">share</span>
+</button>
+<ul class="mdl-menu mdl-menu--bottom-right mdl-js-menu mdl-js-ripple-effect" for="article-fuctions-share-button">
+    
+
+    
+
+    <!-- Share Weibo -->
+    
+        <a class="post_share-link" href="http://service.weibo.com/share/share.php?appkey=&title=Lottie动画库 Android 端源码浅析&url=https://moonchenhaohui.github.io//2017/03/13/sd/index.html&pic=&searchPic=false&style=simple" target="_blank">
+            <li class="mdl-menu__item">
+                分享到微博
+            </li>
+        </a>
+    
+
+    <!-- Share Twitter -->
+    
+        <a class="post_share-link" href="https://twitter.com/intent/tweet?text=Lottie动画库 Android 端源码浅析&url=https://moonchenhaohui.github.io//2017/03/13/sd/index.html&via=MoonChen" target="_blank">
+            <li class="mdl-menu__item">
+                分享到 Twitter
+            </li>
+        </a>
+    
+
+    <!-- Share Facebook -->
+    
+        <a class="post_share-link" href="https://www.facebook.com/sharer/sharer.php?u=https://moonchenhaohui.github.io//2017/03/13/sd/index.html" target="_blank">
+            <li class="mdl-menu__item">
+                分享到 Facebook
+            </li>
+        </a>
+    
+
+    <!-- Share Google+ -->
+    
+        <a class="post_share-link" href="https://plus.google.com/share?url=https://moonchenhaohui.github.io//2017/03/13/sd/index.html" target="_blank">
+            <li class="mdl-menu__item">
+                分享到 Google+
+            </li>
+        </a>
+    
+
+    <!-- Share LinkedIn -->
+    
+
+    <!-- Share QQ -->
+    
+
+    <!-- Share Telegram -->
+    
+</ul>
+
+</div>
+
+                
+
+                <!-- Post Content -->
+                <div id="post-content" class="markdown-Github mdl-color-text--grey-700 mdl-card__supporting-text fade out">
+    
+        <h1 id="惊艳的Lottie"><a href="#惊艳的Lottie" class="headerlink" title="惊艳的Lottie"></a>惊艳的Lottie</h1><p>  前段时间airbnb开源的动画库Lottie得到了不错的反响，旨在解决Android、IOS、RN 上面开发动画成本高、表现不一致的问题，可以说降低了三端动画的开发成本。</p>
+<p>  项目地址：<a href="https://github.com/airbnb/lottie-android" target="_blank" rel="external">https://github.com/airbnb/lottie-android</a></p>
+<p>  先上几个git上的效果：</p>
+<p><img src="https://github.com/airbnb/lottie-android/raw/master/gifs/Example1.gif" alt="img"><br><img src="https://github.com/airbnb/lottie-android/raw/master/gifs/Example2.gif" alt="img"></p>
+<p>  如果需要在3端都分别完成这些动画，可能就需要折磨设计&amp;开发同学了。人肉写出这些效果简直是处女座也无法完成的一件事。<br>  Lottie在这件事上就是来拯救移动开发程序员的。</p>
+<h1 id="思路"><a href="#思路" class="headerlink" title="思路"></a>思路</h1><p>  Lottie借助AE生成动画，再利用AE插件<a href="https://github.com/bodymovin/bodymovin" target="_blank" rel="external">bodymovin</a>来导出可描述的json文件，而Lottie负责在不同端上解析json文件完成动画的绘制。</p>
+<blockquote>
+<p>从设计思路上可以看出，这确实是一个很好的解法，Lottie抹平了各端的差异性，通过统一描述（JSON）来表述动画。这看上去和近年来很火的Weex思路一致。</p>
+</blockquote>
+<p>  作为一个Android搬砖程序员，接下来的篇幅主要以Lottie Android SDK（ios也不会呀~~~）来分析一下Lottie的解法。</p>
+<h1 id="Lottie-Android-Useage"><a href="#Lottie-Android-Useage" class="headerlink" title="Lottie Android Useage"></a>Lottie Android Useage</h1><p>  先来感受一下用法，感觉还是很清爽的：</p>
+<ol>
+<li>Dependency:<figure class="highlight java"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">compile <span class="string">'com.airbnb.android:lottie:1.5.3'</span></div></pre></td></tr></table></figure>
+</li>
+</ol>
+<p>  使用<code>lottie_fileName=&quot;hello-world.json&quot;</code>来指定动画路径，也可以使用：<code>setAnimation(&quot;hello-world.json&quot;)</code>来指定。<br>  <figure class="highlight java"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div></pre></td><td class="code"><pre><div class="line">&lt;com.airbnb.lottie.LottieAnimationView</div><div class="line">      android:id=<span class="string">"@+id/animation_view"</span></div><div class="line">      android:layout_width=<span class="string">"wrap_content"</span></div><div class="line">      android:layout_height=<span class="string">"wrap_content"</span></div><div class="line">      app:lottie_fileName=<span class="string">"hello-world.json"</span></div><div class="line">      app:lottie_loop=<span class="string">"true"</span></div><div class="line">      app:lottie_autoPlay=<span class="string">"true"</span> /&gt;</div></pre></td></tr></table></figure></p>
+<p>  or<br>  <figure class="highlight java"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line">LottieAnimationView animationView = (LottieAnimationView) findViewById(R.id.animation_view);</div><div class="line">animationView.setAnimation(<span class="string">"hello-world.json"</span>);</div><div class="line">animationView.loop(<span class="keyword">true</span>);</div></pre></td></tr></table></figure></p>
+<pre><code>然后你就可以像使用普通动画对待Lottie了。
+</code></pre><h1 id="原理浅析"><a href="#原理浅析" class="headerlink" title="原理浅析"></a>原理浅析</h1><h2 id="绘制"><a href="#绘制" class="headerlink" title="绘制"></a>绘制</h2><p>我们先从能接触到的类<code>com.airbnb.lottie.LottieAnimationView</code>看起，所有的逻辑处理、json解析、绘制工作都在这里完成。</p>
+<p><img src="http://oidnhvewg.bkt.clouddn.com/lottie-com.airbnb.lottie.LottieAnimationView.png?imageView2/2/w/700" alt="img"></p>
+<p>可以看到这个是<code>AppCompatImageView</code>，里面有个很重要的变量：</p>
+<p><strong><code>LottieDrawable lottieDrawable;</code></strong></p>
+<p>LottieAnimationView在初始化时会调用<code>setImageDrawable(lottieDrawable);</code>方法，使用<code>LottieDrawable</code>作为ImageDrawable。并且同时重写<code>invalidateDrawable</code>方法，当需要invalidate时通知lottieDrawable。</p>
+<p><img src="http://oidnhvewg.bkt.clouddn.com/lottie-com.airbnb.lottie.LottieAnimationView-2.png?imageView2/2/w/600" alt="img"></p>
+<h3 id="LottieDrawable"><a href="#LottieDrawable" class="headerlink" title="LottieDrawable"></a>LottieDrawable</h3><p><img src="http://oidnhvewg.bkt.clouddn.com/lottie-drawable-hierarchy.png?imageView2/2/w/400" alt="img"></p>
+<p>从类结构看，继承自<code>AnimatableLayer</code>，里面实现了<code>Drawable</code>需要实现的方法，主要是<code>public void draw(@NonNull Canvas canvas)</code>用来实现Drawable的绘制工作。</p>
+<p>我们先来看看父类 <strong>AnimatableLayer</strong> 定义了什么行为。</p>
+<p>首先当然是来看最重要的:<strong>draw</strong></p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div></pre></td><td class="code"><pre><div class="line"><span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">draw</span><span class="params">(@NonNull Canvas canvas)</span> </span>&#123;</div><div class="line">  <span class="keyword">int</span> saveCount = canvas.save();</div><div class="line">  applyTransformForLayer(canvas, <span class="keyword">this</span>);</div><div class="line"></div><div class="line">  <span class="keyword">int</span> backgroundAlpha = Color.alpha(backgroundColor);</div><div class="line">  ...</div><div class="line">  canvas.drawRect(getBounds(), solidBackgroundPaint);</div><div class="line">  <span class="keyword">for</span> (<span class="keyword">int</span> i = <span class="number">0</span>; i &lt; layers.size(); i++) &#123;</div><div class="line">    layers.get(i).draw(canvas);</div><div class="line">  &#125;</div><div class="line">  canvas.restoreToCount(saveCount);</div><div class="line">&#125;</div><div class="line"><span class="function"><span class="keyword">void</span> <span class="title">applyTransformForLayer</span><span class="params">(@Nullable Canvas canvas, AnimatableLayer layer)</span> </span>&#123;</div><div class="line">  ...</div><div class="line">  PointF position = layer.transform.getPosition().getValue();</div><div class="line">  canvas.translate(position.x, position.y);</div><div class="line"><span class="comment">//省略 rotation scale anchorPoint等变换</span></div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<p>可以看到，在绘制前，调用<code>applyTransformForLayer</code>对画布canvas进行了<code>transform</code>操作。接着绘制<code>background</code>、<code>layers</code>。</p>
+<p>而layers的定义是：<code>final List&lt;AnimatableLayer&gt; layers = new ArrayList&lt;&gt;();</code> 每一层，都是一个<code>AnimatableLayer</code>对象。</p>
+<p>我们来看看<code>AnimatableLayer</code>的子类。</p>
+<p><img src="http://oidnhvewg.bkt.clouddn.com/lottie-hierarchy.png?imageView2/2/w/600" alt="img"></p>
+<p><strong>我们目前大概可以分析出，Lottie 根据JSON 构造了一个树形结构，root节点是LottieDrawable，将绘制的元素添加到了<code>LottieDrawable.layers</code>中。递归的描述每一个元素。</strong></p>
+<p>我们接着看“root”：<code>LottieDrawable</code>都做了些什么。</p>
+<h3 id="让Drawable“动起来”"><a href="#让Drawable“动起来”" class="headerlink" title="让Drawable“动起来”"></a>让Drawable“动起来”</h3><p>由于Drawable本身只是负责绘制工作，并不会像动画一样，有<code>start、end、duration</code>等属性。因此在<code>LottieDrawable</code>引入了一个简单的<code>animator = ValueAnimator.ofFloat(0f, 1f)</code>来解决这个问题。</p>
+<p><img src="http://oidnhvewg.bkt.clouddn.com/lottie-animation.png?imageView2/2/w/600" alt="img"></p>
+<p>所有对动画的操作(repeat、start)，都是对这个<code>ValueAnimator</code>元素的操作。</p>
+<h4 id="setProgerss"><a href="#setProgerss" class="headerlink" title="setProgerss"></a>setProgerss</h4><p><img src="http://oidnhvewg.bkt.clouddn.com/lottie-animation-progress.png?imageView2/2/w/600" alt="img"></p>
+<p>从上面可以看到，调用父类<code>AnimatableLayer</code>的<code>setProgerss</code>会通知<code>animations、layers</code>。之前我们已经了解过layers，那么animations是什么呢？来看定义：</p>
+<p><strong>private final List<basekeyframeanimation<?, ?="">&gt; animations = new ArrayList&lt;&gt;();</basekeyframeanimation<?,></strong></p>
+<h4 id="BaseKeyframeAnimation"><a href="#BaseKeyframeAnimation" class="headerlink" title="BaseKeyframeAnimation"></a>BaseKeyframeAnimation</h4><p><code>BaseKeyframeAnimation&lt;?, ?&gt;</code>从字面意思大概是用来描述关键帧的动画。</p>
+<p>做过动画的朋友大概清楚“关键帧”的概念。<code>BaseKeyframeAnimation</code>的意义就是存放了一个动画中所有的关键帧，以及每一帧的过度进度。</p>
+<p><img src="http://oidnhvewg.bkt.clouddn.com/lottie-animation-key-frame.png" alt="img"></p>
+<ul>
+<li><code>listeners</code>可以注册对动画的监听，当外界调用<code>setProgerss</code>时，会通知给监听者。</li>
+<li><code>keyframes</code> 存放了当前动画所有关键帧。</li>
+</ul>
+<p>最终对外的方法是：</p>
+<p><strong>abstract A getValue(Keyframe<k> keyframe, float keyframeProgress);</k></strong> </p>
+<p>从入参看很清晰，传入了当前所在的关键帧，以及帧进度。</p>
+<h4 id="KeyFrame"><a href="#KeyFrame" class="headerlink" title="KeyFrame"></a>KeyFrame</h4><p>KeyFrame是对每一帧的描述,字段如下：</p>
+<p><img src="http://oidnhvewg.bkt.clouddn.com/lottie-keyframe.png" alt="img"></p>
+<ul>
+<li><code>LottieComposition</code>是当前帧的所有数据，我们后面会讲到。</li>
+</ul>
+<p>并且提供了静态工厂方法来生成一个KeyFrame。将JSON文件解析成一个KeyFrame对象。</p>
+<p><img src="http://oidnhvewg.bkt.clouddn.com/lottie-keyframe-factroy.png" alt="img"></p>
+<h4 id="setTransform"><a href="#setTransform" class="headerlink" title="setTransform"></a>setTransform</h4><p>前面提到的<code>animations</code>是在何时注册的呢？</p>
+<p>我们在<code>AnimatableLayer.setTransform</code>方法中看到了注册方法。具体如下：</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div></pre></td><td class="code"><pre><div class="line"></div><div class="line">KeyframeAnimation.AnimationListener&lt;PointF&gt; pointChangedListener = ()-&gt;invalidateSelf();</div><div class="line"></div><div class="line"><span class="function"><span class="keyword">void</span> <span class="title">setTransform</span><span class="params">(TransformKeyframeAnimation transform)</span> </span>&#123;</div><div class="line">    BaseKeyframeAnimation&lt;?, PointF&gt; anchorPoint = transform.getAnchorPoint();</div><div class="line">    ...</div><div class="line">    anchorPoint.addUpdateListener(pointChangedListener);</div><div class="line">    addAnimation(opacity);</div><div class="line">    invalidateSelf();</div><div class="line">  &#125;</div></pre></td></tr></table></figure>
+<p>可以看到，在addAnimation后以及 注册的updatelistener中调用了<code>invalidateSelf()</code>方法。而<code>invalidateSelf()</code>方法会触发<strong>draw</strong>流程。<strong>draw</strong> 会递归的调用<code>layers</code>进行绘制。由于每一个layer都拥有当前的 progress，因此就可以正确的绘制出来啦。</p>
+<h2 id="JSON-解析"><a href="#JSON-解析" class="headerlink" title="JSON 解析"></a>JSON 解析</h2><p>解析工作在调用<code>animationView.setAnimation</code>后，就开始了。</p>
+<p>JSON 解析 会用<code>InputStream</code>异步读取json内容，经过处理后封装成<code>LottieComposition</code>对象。</p>
+<p><img src="http://oidnhvewg.bkt.clouddn.com/lottie-LottieComposition.png" alt="img"></p>
+<p>当加载完成后，会回调<code>animationView.setComposition</code>方法。animationView会接着调用<code>LottieDrawable.setComposition</code>。</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div></pre></td><td class="code"><pre><div class="line"><span class="function"><span class="keyword">void</span> <span class="title">setComposition</span><span class="params">(LottieComposition composition)</span> </span>&#123;</div><div class="line">    ...</div><div class="line">    buildLayersForComposition(composition);</div><div class="line">	 ...</div><div class="line"> &#125;</div></pre></td></tr></table></figure>
+<h3 id="buildLayersForComposition"><a href="#buildLayersForComposition" class="headerlink" title="buildLayersForComposition"></a>buildLayersForComposition</h3><p>这里完成了前面提到的 <code>layers</code>的构建:</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div><div class="line">30</div><div class="line">31</div><div class="line">32</div><div class="line">33</div><div class="line">34</div><div class="line">35</div><div class="line">36</div><div class="line">37</div></pre></td><td class="code"><pre><div class="line"><span class="function"><span class="keyword">private</span> <span class="keyword">void</span> <span class="title">buildLayersForComposition</span><span class="params">(LottieComposition composition)</span> </span>&#123;</div><div class="line">    ...</div><div class="line">    LongSparseArray&lt;LayerView&gt; layerMap = <span class="keyword">new</span> LongSparseArray&lt;&gt;(composition.getLayers().size());</div><div class="line">    List&lt;LayerView&gt; layers = <span class="keyword">new</span> ArrayList&lt;&gt;(composition.getLayers().size());</div><div class="line">    LayerView mattedLayer = <span class="keyword">null</span>;</div><div class="line">    <span class="keyword">for</span> (<span class="keyword">int</span> i = composition.getLayers().size() - <span class="number">1</span>; i &gt;= <span class="number">0</span>; i--) &#123;</div><div class="line">      Layer layer = composition.getLayers().get(i);</div><div class="line">      LayerView layerView;</div><div class="line">      layerView = <span class="keyword">new</span> LayerView(layer, composition, <span class="keyword">this</span>, canvasPool);</div><div class="line">      layerMap.put(layerView.getId(), layerView);</div><div class="line">      <span class="keyword">if</span> (mattedLayer != <span class="keyword">null</span>) &#123;</div><div class="line">        mattedLayer.setMatteLayer(layerView);</div><div class="line">        mattedLayer = <span class="keyword">null</span>;</div><div class="line">      &#125; <span class="keyword">else</span> &#123;</div><div class="line">        layers.add(layerView);</div><div class="line">        <span class="keyword">if</span> (layer.getMatteType() == Layer.MatteType.Add) &#123;</div><div class="line">          mattedLayer = layerView;</div><div class="line">        &#125; <span class="keyword">else</span> <span class="keyword">if</span> (layer.getMatteType() == Layer.MatteType.Invert) &#123;</div><div class="line">          mattedLayer = layerView;</div><div class="line">        &#125;</div><div class="line">      &#125;</div><div class="line">    &#125;</div><div class="line"></div><div class="line">    <span class="keyword">for</span> (<span class="keyword">int</span> i = <span class="number">0</span>; i &lt; layers.size(); i++) &#123;</div><div class="line">      LayerView layerView = layers.get(i);</div><div class="line">      addLayer(layerView);</div><div class="line">    &#125;</div><div class="line"></div><div class="line">    <span class="keyword">for</span> (<span class="keyword">int</span> i = <span class="number">0</span>; i &lt; layerMap.size(); i++) &#123;</div><div class="line">      <span class="keyword">long</span> key = layerMap.keyAt(i);</div><div class="line">      LayerView layerView = layerMap.get(key);</div><div class="line">      LayerView parentLayer = layerMap.get(layerView.getLayerModel().getParentId());</div><div class="line">      <span class="keyword">if</span> (parentLayer != <span class="keyword">null</span>) &#123;</div><div class="line">        layerView.setParentLayer(parentLayer);</div><div class="line">      &#125;</div><div class="line">    &#125;</div><div class="line">  &#125;</div></pre></td></tr></table></figure>
+<p>里面做了一次转换，构造了一个<code>LayerView</code>对象，这个是关键所在。</p>
+<h3 id="LayerView"><a href="#LayerView" class="headerlink" title="LayerView"></a>LayerView</h3><p>LayerView也是继承自 <code>AnimatableLayer</code>。 完成了所有Layer类型的转换。 </p>
+<p>在初始化方式中会调用:<code>setupForModel();</code>方法。</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div></pre></td><td class="code"><pre><div class="line"><span class="function"><span class="keyword">private</span> <span class="keyword">void</span> <span class="title">setupForModel</span><span class="params">()</span> </span>&#123;</div><div class="line">    ...</div><div class="line">    <span class="keyword">switch</span> (layerModel.getLayerType()) &#123;</div><div class="line">      <span class="keyword">case</span> Shape:</div><div class="line">        setupShapeLayer();</div><div class="line">        <span class="keyword">break</span>;</div><div class="line">      <span class="keyword">case</span> PreComp:</div><div class="line">        setupPreCompLayer();</div><div class="line">        <span class="keyword">break</span>;</div><div class="line">    &#125;</div><div class="line">    ...</div><div class="line">&#125;</div><div class="line"></div><div class="line"></div><div class="line"><span class="function"><span class="keyword">private</span> <span class="keyword">void</span> <span class="title">setupShapeLayer</span><span class="params">()</span> </span>&#123;</div><div class="line">    List&lt;Object&gt; reversedItems = <span class="keyword">new</span> ArrayList&lt;&gt;(layerModel.getShapes());</div><div class="line">    ...</div><div class="line">    <span class="keyword">for</span> (<span class="keyword">int</span> i = <span class="number">0</span>; i &lt; reversedItems.size(); i++) &#123;</div><div class="line">      Object item = reversedItems.get(i);</div><div class="line">      <span class="keyword">if</span> (item <span class="keyword">instanceof</span> ShapeGroup) &#123;</div><div class="line">        GroupLayerView groupLayer = <span class="keyword">new</span> GroupLayerView((ShapeGroup) item, currentFill,</div><div class="line">            currentStroke, currentTrim, currentTransform, getCallback());</div><div class="line">        addLayer(groupLayer);</div><div class="line">      &#125; <span class="keyword">else</span> <span class="keyword">if</span> (item <span class="keyword">instanceof</span> AnimatableTransform) &#123;</div><div class="line">        currentTransform = (AnimatableTransform) item;</div><div class="line">      &#125;</div><div class="line">      ...more</div><div class="line">  &#125;</div></pre></td></tr></table></figure>
+<p>摘取了<code>setupShapeLayer</code>的代码片段，里面会根据不同的数据类型，生成不同的LayerView，这些细节就不再做细究了。</p>
+<h1 id="总结"><a href="#总结" class="headerlink" title="总结"></a>总结</h1><ol>
+<li>绘制：Lottie 使用 ImageView.Drawable来处理动画。使用统一Canvas来绘制。</li>
+<li>动画控制：借助一个ValueAnimator来控制动画的进度，通过一系列监听器来通知Drawable进行绘制（draw）。</li>
+<li>资源转换：将JSON文件经过处理得到LottieComposition对象，包括了每一层动画对象、资源（images）等信息。</li>
+</ol>
+<p><img src="http://oidnhvewg.bkt.clouddn.com/lottie-s.png" alt="img"></p>
+<h1 id="写在最后"><a href="#写在最后" class="headerlink" title="写在最后"></a>写在最后</h1><p>首先给Lottie的工程师一个star。</p>
+<p>本文只是对Lottie的主要逻辑进行了梳理，没有梳理动画格式之类，里面比较复杂的的部分是不同的Layer的绘制、KeyFrame的计算。这部分由于对AE以及bodymovin不太了解就没有深究了。旨在掌握Lottie的大体设计。如有错误之处，请指出。</p>
+<p>最后吐槽一波Lottie的代码结构，虽然源码不多，但是这个一层结构。。。。 </p>
+<p> <img src="http://oidnhvewg.bkt.clouddn.com/lottie-file.png?imageView2/2/w/400" alt="img"></p>
+
+    
+
+    
+</div>
+
+
+                
+
+                <!-- Post Comments -->
+                
+                    
+
+
+
+                
+            </div>
+
+            <!-- Post Prev & Next Nav -->
+            <nav class="material-nav mdl-color-text--grey-50 mdl-cell mdl-cell--12-col">
+    <!-- Prev Nav -->
+    
+        <a href="/2017/03/17/有意思的2进制操作/" id="post_nav-newer" class="prev-content">
+            <button class="mdl-button mdl-js-button mdl-js-ripple-effect mdl-button--icon mdl-color--white mdl-color-text--grey-900" role="presentation">
+                <i class="material-icons">arrow_back</i>
+            </button>
+            &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+            新篇
+        </a>
+    
+
+    <!-- Section Spacer -->
+    <div class="section-spacer"></div>
+
+    <!-- Next Nav -->
+    
+        <a href="/2017/02/21/View-getDrawingCache到底干了什么？/" id="post_nav-older" class="next-content">
+            旧篇
+            &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+            <button class="mdl-button mdl-js-button mdl-js-ripple-effect mdl-button--icon mdl-color--white mdl-color-text--grey-900" role="presentation">
+                <i class="material-icons">arrow_forward</i>
+            </button>
+        </a>
+    
+</nav>
+
+        </div>
+    </div>
+
+
+
+                    
+                        <!-- Overlay For Active Sidebar -->
+<div class="sidebar-overlay"></div>
+
+<!-- Material sidebar -->
+<aside id="sidebar" class="sidebar sidebar-colored sidebar-fixed-left" role="navigation">
+    <div id="sidebar-main">
+        <!-- Sidebar Header -->
+        <div class="sidebar-header header-cover" style="background-image: url();">
+    <!-- Top bar -->
+    <div class="top-bar"></div>
+
+    <!-- Sidebar toggle button -->
+    <button type="button" class="sidebar-toggle mdl-button mdl-js-button mdl-js-ripple-effect mdl-button--icon" style="display: initial;" data-upgraded=",MaterialButton,MaterialRipple">
+        <i class="material-icons">clear_all</i>
+        <span class="mdl-button__ripple-container">
+            <span class="mdl-ripple">
+            </span>
+        </span>
+    </button>
+
+    <!-- Sidebar Avatar -->
+    <div class="sidebar-image">
+        <img src="https://avatars3.githubusercontent.com/u/10590273?v=3&amp;s=460" alt="MoonChen's avatar">
+    </div>
+
+    <!-- Sidebar Email -->
+    <a data-toggle="dropdown" class="sidebar-brand" href="#settings-dropdown">
+        moon4chen@163.com
+        <b class="caret"></b>
+    </a>
+</div>
+
+
+        <!-- Sidebar Navigation  -->
+        <ul class="nav sidebar-nav">
+    <!-- User dropdown  -->
+    <li class="dropdown">
+        <ul id="settings-dropdown" class="dropdown-menu">
+            
+        </ul>
+    </li>
+
+    <!-- Homepage -->
+    <li id="sidebar-first-li">
+        <a href="/" target="_self">
+            <i class="material-icons sidebar-material-icons">home</i>
+            主页
+        </a>
+    </li>
+
+    <!-- I'm Feeling Lucky -->
+    <!--
+    <li class="dropdown">
+        <a href="" target="_self">
+            <i class="material-icons sidebar-material-icons">explore</i>
+             sidebar.imlucky
+        </a>
+    </li>
+    -->
+
+    <!-- Archives  -->
+    <li class="dropdown">
+        <a href="#" class="ripple-effect dropdown-toggle" data-toggle="dropdown">
+            <i class="material-icons sidebar-material-icons">inbox</i>
+             归档
+            <b class="caret"></b>
+        </a>
+        <ul class="dropdown-menu">
+            <li>
+            <a class="sidebar_archives-link" href="/archives/2017/03/">三月 2017<span class="sidebar_archives-count">3</span></a></li><li><a class="sidebar_archives-link" href="/archives/2017/02/">二月 2017<span class="sidebar_archives-count">2</span></a></li><li><a class="sidebar_archives-link" href="/archives/2017/01/">一月 2017<span class="sidebar_archives-count">2</span></a>
+        </ul>
+    </li>
+
+    <!-- Categories  -->
+    
+
+    <!-- Divider -->
+    <li class="divider"></li>
+
+
+    <!-- Pages  -->
+  	
+
+    <!-- Article Numebr  -->
+    <li>
+        <a href="/archives">
+            文章总数
+            <span class="sidebar-badge">7</span>
+        </a>
+    </li>
+</ul>
+
+
+        <!-- Sidebar Divider -->
+        <div class="sidebar-divider"></div>
+
+        <!-- Sidebar Footer -->
+        <!--
+I'm glad you use this theme, the development is no so easy, I hope you can keep the copyright, I will thank you so much.
+If you still want to delete the copyrights, could you still retain the first one? Which namely "Theme Material"
+It will not impact the appearance and can give developers a lot of support :)
+
+很高兴您使用并喜欢该主题，开发不易 十分谢谢与希望您可以保留一下版权声明。
+如果您仍然想删除的话 能否只保留第一项呢？即 "Theme Material"
+它不会影响美观并可以给开发者很大的支持和动力。 :)
+-->
+
+<!-- Theme Material -->
+<a href="https://github.com/viosey/hexo-theme-material"  class="sidebar-footer-text-a" target="_blank">
+    <div class="sidebar-text mdl-button mdl-js-button mdl-js-ripple-effect sidebar-footer-text-div" data-upgraded=",MaterialButton,MaterialRipple">
+        主题 - Material
+        <span class="sidebar-badge badge-circle">i</span>
+    </div>
+</a>
+
+<!-- Help & Support -->
+<!--
+<a href="mailto:hiviosey@gmail.com" class="sidebar-footer-text-a">
+    <div class="sidebar-text mdl-button mdl-js-button mdl-js-ripple-effect sidebar-footer-text-div" data-upgraded=",MaterialButton,MaterialRipple">
+    sidebar.help
+    <span class="mdl-button__ripple-container">
+      <span class="mdl-ripple"></span>
+    </span>
+  </div>
+</a>
+-->
+
+<!-- Feedback -->
+<!--
+<a href="https://github.com/viosey/hexo-theme-material/issues" target="_blank" class="sidebar-footer-text-a">
+    <div class="sidebar-text mdl-button mdl-js-button mdl-js-ripple-effect sidebar-footer-text-div" data-upgraded=",MaterialButton,MaterialRipple">
+         sidebar.feedback
+                    <span class="mdl-button__ripple-container"><span class="mdl-ripple"></span></span></div>
+</a>
+-->
+
+<!-- Abount Theme -->
+<!--
+<a href="https://blog.viosey.com/index.php/Material.html" target="_blank" class="sidebar-footer-text-a">
+    <div class="sidebar-text mdl-button mdl-js-button mdl-js-ripple-effect sidebar-footer-text-div" data-upgraded=",MaterialButton,MaterialRipple">
+         sidebar.about_theme
+        <span class="mdl-button__ripple-container"><span class="mdl-ripple"></span></span></div>
+</a>-->
+
+    </div>
+
+    <!-- Sidebar Sponsor -->
+    
+
+</aside>
+
+                    
+
+                    
+                        <!-- Footer Top Button -->
+                        <div class="toTop-wrap">
+    <a href="#top" class="toTop">
+        <i class="material-icons footer_top-i">expand_less</i>
+    </a>
+</div>
+
+                    
+
+                    <!--Footer-->
+<footer class="mdl-mini-footer" id="bottom">
+    
+        <!-- Paradox Footer Left Section -->
+        <div class="mdl-mini-footer--left-section sns-list">
+    <!-- Twitter -->
+    
+
+    <!-- Facebook -->
+    
+
+    <!-- Google + -->
+    
+
+    <!-- Weibo -->
+    
+
+    <!-- Instagram -->
+    
+
+    <!-- Tumblr -->
+    
+
+    <!-- Github -->
+    
+        <a href="https://github.com/moonChenHaohui" target="_blank">
+            <button class="mdl-mini-footer--social-btn social-btn" style="background-image: url(/img/footer/footer_ico-github.png);">
+                <span class="visuallyhidden">Github</span>
+            </button><!--
+     --></a>
+    
+
+    <!-- LinkedIn -->
+    
+
+    <!-- Zhihu -->
+    
+
+    <!-- Bilibili -->
+    
+
+    <!-- Telegram -->
+    
+</div>
+
+
+        <!--Copyright-->
+        <div id="copyright">
+            Copyright&nbsp;©&nbsp;
+            <script type="text/javascript">
+                var fd = new Date();
+                document.write(fd.getFullYear());
+            </script>
+            &nbsp;Moon 's Blog
+        </div>
+
+        <!-- Paradox Footer Right Section -->
+
+        <!--
+        I am glad you use this theme, the development is no so easy, I hope you can keep the copyright.
+        It will not impact the appearance and can give developers a lot of support :)
+
+        很高兴您使用该主题，开发不易，希望您可以保留一下版权声明。
+        它不会影响美观并可以给开发者很大的支持。 :)
+        -->
+
+        <div class="mdl-mini-footer--right-section">
+            <div>
+                <div class="footer-develop-div">Powered by <a href="https://hexo.io" target="_blank" class="footer-develop-a">Hexo</a></div>
+                <div class="footer-develop-div">Theme - <a href="https://github.com/viosey/hexo-theme-material" target="_blank" class="footer-develop-a">Material</a></div>
+            </div>
+        </div>
+    
+</footer>
+
+
+                    <!-- Import File -->
+<script src="/js/highlight.min.js"></script>
+<script src="/js/js.min.js"></script>
+<script src="/js/nprogress.js"></script>
+
+<script type="text/javascript">
+    NProgress.configure({
+        showSpinner: true
+    });
+    NProgress.start();
+
+    $('#nprogress .bar').css({
+        'background': '#FFCDD2'
+    });
+    $('#nprogress .peg').css({
+        'box-shadow': '0 0 10px #FFCDD2, 0 0 15px #FFCDD2'
+    });
+    $('#nprogress .spinner-icon').css({
+        'border-top-color': '#FFCDD2',
+        'border-left-color': '#FFCDD2'
+    });
+
+    setTimeout(function() {
+        NProgress.done();
+        $('.fade').removeClass('out');
+    }, 800);
+</script>
+
+
+
+
+
+
+
+
+
+
+
+
+
+<!-- Swiftye -->
+
+
+<!-- Local Search-->
+
+
+<!-- Window Load-->
+<script>
+    $(window).load(function() {
+        // Post_Toc parent position fixed
+        $('.post-toc-wrap').parent('.mdl-menu__container').css('position', 'fixed');
+    });
+</script>
+
+<!-- MathJax Load-->
+
+
+                </main>
+            </div>
+        </body>
+    
+</html>
