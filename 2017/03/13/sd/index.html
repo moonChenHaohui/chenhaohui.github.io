@@ -382,11 +382,7 @@
 <p>从设计思路上可以看出，这确实是一个很好的解法，Lottie抹平了各端的差异性，通过统一描述（JSON）来表述动画。这看上去和近年来很火的Weex思路一致。</p>
 </blockquote>
 <p>  作为一个Android搬砖程序员，接下来的篇幅主要以Lottie Android SDK（ios也不会呀~~~）来分析一下Lottie的解法。</p>
-<h1 id="Lottie-Android-Useage"><a href="#Lottie-Android-Useage" class="headerlink" title="Lottie Android Useage"></a>Lottie Android Useage</h1><p>  先来感受一下用法，感觉还是很清爽的：</p>
-<ol>
-<li>Dependency:<figure class="highlight java"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">compile <span class="string">'com.airbnb.android:lottie:1.5.3'</span></div></pre></td></tr></table></figure>
-</li>
-</ol>
+<h1 id="Lottie-Android-Useage"><a href="#Lottie-Android-Useage" class="headerlink" title="Lottie Android Useage"></a>Lottie Android Useage</h1><p>  先来感受一下用法，感觉还是很清爽的：<br>  Dependency:<br>  <figure class="highlight java"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">compile <span class="string">'com.airbnb.android:lottie:1.5.3'</span></div></pre></td></tr></table></figure></p>
 <p>  使用<code>lottie_fileName=&quot;hello-world.json&quot;</code>来指定动画路径，也可以使用：<code>setAnimation(&quot;hello-world.json&quot;)</code>来指定。<br>  <figure class="highlight java"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div></pre></td><td class="code"><pre><div class="line">&lt;com.airbnb.lottie.LottieAnimationView</div><div class="line">      android:id=<span class="string">"@+id/animation_view"</span></div><div class="line">      android:layout_width=<span class="string">"wrap_content"</span></div><div class="line">      android:layout_height=<span class="string">"wrap_content"</span></div><div class="line">      app:lottie_fileName=<span class="string">"hello-world.json"</span></div><div class="line">      app:lottie_loop=<span class="string">"true"</span></div><div class="line">      app:lottie_autoPlay=<span class="string">"true"</span> /&gt;</div></pre></td></tr></table></figure></p>
 <p>  or<br>  <figure class="highlight java"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line">LottieAnimationView animationView = (LottieAnimationView) findViewById(R.id.animation_view);</div><div class="line">animationView.setAnimation(<span class="string">"hello-world.json"</span>);</div><div class="line">animationView.loop(<span class="keyword">true</span>);</div></pre></td></tr></table></figure></p>
 <pre><code>然后你就可以像使用普通动画对待Lottie了。
@@ -577,7 +573,7 @@
         </a>
         <ul class="dropdown-menu">
             <li>
-            <a class="sidebar_archives-link" href="/archives/2017/03/">三月 2017<span class="sidebar_archives-count">3</span></a></li><li><a class="sidebar_archives-link" href="/archives/2017/02/">二月 2017<span class="sidebar_archives-count">2</span></a></li><li><a class="sidebar_archives-link" href="/archives/2017/01/">一月 2017<span class="sidebar_archives-count">2</span></a>
+            <a class="sidebar_archives-link" href="/archives/2017/03/">三月 2017<span class="sidebar_archives-count">4</span></a></li><li><a class="sidebar_archives-link" href="/archives/2017/02/">二月 2017<span class="sidebar_archives-count">2</span></a></li><li><a class="sidebar_archives-link" href="/archives/2017/01/">一月 2017<span class="sidebar_archives-count">2</span></a>
         </ul>
     </li>
 
@@ -595,7 +591,7 @@
     <li>
         <a href="/archives">
             文章总数
-            <span class="sidebar-badge">7</span>
+            <span class="sidebar-badge">8</span>
         </a>
     </li>
 </ul>

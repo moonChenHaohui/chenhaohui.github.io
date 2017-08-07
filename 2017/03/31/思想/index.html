@@ -10,7 +10,7 @@
     
     <title>
         
-            过年前的最后一周 | 
+            思想 | 
         
         Moon &#39;s Blog
     </title>
@@ -48,7 +48,7 @@
     <!-- The Open Graph protocol -->
     <meta property="og:url" content="https://moonchenhaohui.github.io">
     <meta property="og:type" content="blog">
-    <meta property="og:title" content="过年前的最后一周 | Moon &#39;s Blog">
+    <meta property="og:title" content="思想 | Moon &#39;s Blog">
     <meta property="og:description" content="杭飘Android程序猿。">
 
     <!--[if lte IE 9]>
@@ -226,7 +226,7 @@
     </button>
 
     <ul class="post-toc-wrap mdl-menu mdl-menu--bottom-left mdl-js-menu mdl-js-ripple-effect" for="post-toc-trigger-btn">
-        <ol class="post-toc"><li class="post-toc-item post-toc-level-1"><a class="post-toc-link" href="#回家"><span class="post-toc-number">1.</span> <span class="post-toc-text">回家</span></a></li></ol>
+        
 
         <!--
         <li class="mdl-menu__item">
@@ -262,7 +262,7 @@
         
     
             <p class="article-headline-p">
-                过年前的最后一周
+                思想
             </p>
         </div>
 
@@ -281,7 +281,7 @@
     <!-- Author Name & Date -->
     <div>
         <strong>MoonChen</strong>
-        <span>1月 15, 2017</span>
+        <span>3月 31, 2017</span>
     </div>
 
     <div class="section-spacer"></div>
@@ -321,7 +321,7 @@
 
     <!-- Share Weibo -->
     
-        <a class="post_share-link" href="http://service.weibo.com/share/share.php?appkey=&title=过年前的最后一周&url=https://moonchenhaohui.github.io//2017/01/15/过年前的最后一周/index.html&pic=&searchPic=false&style=simple" target="_blank">
+        <a class="post_share-link" href="http://service.weibo.com/share/share.php?appkey=&title=思想&url=https://moonchenhaohui.github.io//2017/03/31/思想/index.html&pic=&searchPic=false&style=simple" target="_blank">
             <li class="mdl-menu__item">
                 分享到微博
             </li>
@@ -330,7 +330,7 @@
 
     <!-- Share Twitter -->
     
-        <a class="post_share-link" href="https://twitter.com/intent/tweet?text=过年前的最后一周&url=https://moonchenhaohui.github.io//2017/01/15/过年前的最后一周/index.html&via=MoonChen" target="_blank">
+        <a class="post_share-link" href="https://twitter.com/intent/tweet?text=思想&url=https://moonchenhaohui.github.io//2017/03/31/思想/index.html&via=MoonChen" target="_blank">
             <li class="mdl-menu__item">
                 分享到 Twitter
             </li>
@@ -339,7 +339,7 @@
 
     <!-- Share Facebook -->
     
-        <a class="post_share-link" href="https://www.facebook.com/sharer/sharer.php?u=https://moonchenhaohui.github.io//2017/01/15/过年前的最后一周/index.html" target="_blank">
+        <a class="post_share-link" href="https://www.facebook.com/sharer/sharer.php?u=https://moonchenhaohui.github.io//2017/03/31/思想/index.html" target="_blank">
             <li class="mdl-menu__item">
                 分享到 Facebook
             </li>
@@ -348,7 +348,7 @@
 
     <!-- Share Google+ -->
     
-        <a class="post_share-link" href="https://plus.google.com/share?url=https://moonchenhaohui.github.io//2017/01/15/过年前的最后一周/index.html" target="_blank">
+        <a class="post_share-link" href="https://plus.google.com/share?url=https://moonchenhaohui.github.io//2017/03/31/思想/index.html" target="_blank">
             <li class="mdl-menu__item">
                 分享到 Google+
             </li>
@@ -372,7 +372,139 @@
                 <!-- Post Content -->
                 <div id="post-content" class="markdown-Github mdl-color-text--grey-700 mdl-card__supporting-text fade out">
     
-        <h1 id="回家"><a href="#回家" class="headerlink" title="回家"></a>回家</h1><p>  周五就可以回家了，真开心。今年回家假期有15天。</p>
+        <p>在Android开发中，常采用 MVC（Model-View-Controller）或者MVP（Model-View-Presenter） 等框架模式。设计如图</p>
+<p>mvc mvp<br>可以看出，在 MVC 框架中，请求流程如下：</p>
+<p>View接受用户的请求<br>View传递请求给Controller<br>Controller操作Model进行数据更新<br>Model通知View变化<br>View根据更新的数据做出显示<br>而MVP框架中，请求流程如下：</p>
+<p>View 接受用户请求<br>View 传递请求给Presenter<br>Presenter做逻辑处理，修改Model<br>Model 通知Presenter数据变化<br>Presenter 更新View<br>相比于MVC，MVP则使用Presenter解除了View与Model的耦合，Presenter将Model的变化返回给View。</p>
+<p>举个栗子</p>
+<p>小明需要开发一个功能，当点击“find student id”按钮时，可以查询到他自己的学号。</p>
+<p>栗子<br>对于MVC 实现，应该是这样的：</p>
+<p>1.先实现一个 model，需要有通知View更新的能力,当model加载成功，如从db、获取后，需要告知View：</p>
+<p>public class StudentModel {</p>
+<pre><code>String mId;
+WelcomeActivity mActivity;
+
+public StudentModel (WelcomeActivity activity) {
+    this.mActivity = activity;
+}
+public void loadModel (){
+    //search from db or intent
+    mId = &quot;1201030018&quot;;
+    mActivity.updateUI(this);
+}
+</code></pre><p>}<br>2.Controller ： 我们为了更好的理解MVC，将Activity进行了拆解。提取了一个简单的Controller</p>
+<p>public class WelcomeController {</p>
+<pre><code>WelcomeActivity mActivity;
+StudentModel mStudent;
+
+WelcomeController (WelcomeActivity activity) {
+    this.mActivity = activity;
+}
+
+public void loadData (){
+    mStudent = new StudentModel(mActivity);
+    mStudent.loadModel();
+}
+</code></pre><p>}<br>View ： View需要发出点击事件，并且传递给Controller,同时需要根据Model更新UI：<br>public class WelcomeActivity extends AppCompatActivity {</p>
+<pre><code>@Override
+protected void onCreate(Bundle savedInstanceState) {
+   //省略
+    final WelcomeController controller = new WelcomeController(this);
+    mFindBtn.setOnClickListener(new View.OnClickListener() {
+        @Override
+        public void onClick(View view) {
+            controller.loadData();
+        }
+    });
+}
+
+public void updateUI (StudentModel model) {
+    mID.setText(model.mId);
+}
+</code></pre><p>}<br>调用链是:<br>View:OnClick -&gt;<br>Controller:loadData-&gt;<br>Model:loadModel-&gt;<br>View:updateUI</p>
+<p>这里为了更明显的表明意图，将Activity单纯的看做一个View。<br>MVP 改写</p>
+<p>同样的例子，我们使用MVP进行改写</p>
+<p>我们需要先对Model进行封装，当loadModel后，不直接通知View更新，而是通知监听方（Presenter）：<br>public class StudentModel {<br>    String mId;<br>    OnGetListener mListener;</p>
+<pre><code>public StudentModel (OnGetListener listener) {
+    this.mListener = listener;
+}
+public void loadModel (){
+    //search from db or intent
+    mId = &quot;1201030018&quot;;
+    if (mListener != null) {
+        mListener.onSuccess(this);
+    }
+}
+interface OnGetListener {
+    void onSuccess (StudentModel student);
+}
+</code></pre><p>}<br>2.再定义Presenter ，接收到来自View的操作命令后，进行逻辑处理，处理Model，修改完成后 通知View进行修改。</p>
+<p>public class WelcomePresenter {</p>
+<pre><code>WelcomeActivity mActivity;
+StudentModel mStudent;
+
+WelcomePresenter (WelcomeActivity activity) {
+    this.mActivity = activity;
+}
+
+public void loadData (){
+    mStudent = new StudentModel(new StudentModel.OnGetListener() {
+        @Override
+        public void onSuccess(StudentModel student) {
+            mActivity.updateUI(student);
+        }
+    });
+}
+</code></pre><p>}<br>3.对于View，操作方式只是修改了持有的对象 WelcomeController-&gt;WelcomePresenter，其他保持不变。</p>
+<p>这时调用流程变成了：</p>
+<p>View:OnClick -&gt;<br>Presenter:loadData-&gt;<br>Model:loadModel-&gt;<br>Presenter:onSuccess&gt;<br>View:updateUI</p>
+<p>我们将View的数据更新 从Model-&gt;View,转变成了Presenter-&gt;View,解除了View和Model的耦合。</p>
+<p>mvvm</p>
+<p>早些年微软WPF提出的数据绑定系统与Presentation Model相结合的做法，能使开发人员将View和逻辑分离，称之Model-View-ViewModel(MVVM)。</p>
+<p>在Android 借助Google提出的 DataBinding 框架完成 双向绑定操作。</p>
+<p>DataBinding用法可以参考: <a href="https://developer.android.com/topic/libraries/data-binding/index.html" target="_blank" rel="external">https://developer.android.com/topic/libraries/data-binding/index.html</a></p>
+<p>调用链路如下：</p>
+<p>MVVM<br>可以看到，在MVVM框架中，除了将 Presenter 换成了 ViewModel 外，请求流程都和MVP类似，只是在最后一步中，由于View与ViewModel使用了双向绑定，两者的交互通过Data Binding 完成。如此使得View和控制模块的耦合更加降低，减轻了视图的压力。</p>
+<p>还是那个栗子🌰</p>
+<p>我们引入Data Binding解决这个问题。</p>
+<p>把Controller\Presenter扔掉，先写一个ViewModel<br>这个VM的概念是一个和视图相关的模型，因此可以和DAO相关的模型不一样，因为我们只需要展示student id的数据以及click事件，以及loadData行为，用来从Model中获取数据，于是我们实现了一个VM :<br>这里我们需要遵循Data Binding的语法，如继承自BaseObservable，数据更新后调用notifyChange方法等。<br>public class StudentViewModel extends BaseObservable{</p>
+<pre><code>String studentID;
+View.OnClickListener btnListener;
+</code></pre><p>   //省略get set</p>
+<pre><code>public StudentViewModel() {
+    btnListener = new View.OnClickListener() {
+        @Override
+        public void onClick(View view) {
+            loadData();
+        }
+    };
+}
+
+public void loadData() {
+    StudentModel model = new StudentModel(new StudentModel.OnGetListener() {
+        @Override
+        public void onSuccess(StudentModel student) {
+            setStudentID(student.mId);
+        }
+    });
+    model.loadModel();
+}
+</code></pre><p>}<br>接着使用databinding语法 对 xml 进行数据绑定,我们将 Click事件、输出结果都绑定到VM上。<br>&lt;?xml version=”1.0” encoding=”utf-8”?&gt;</p>
+<p><layout xmlns:android="http://schemas.android.com/apk/res/android" xmlns:tools="http://schemas.android.com/tools"><br>    <data><br>        <variable name="userVM" type="com.moon.coderread.StudentViewModel"><br>    </variable></data><br>    <linearlayout 省略="" <textview="" android:id="@+id/id" android:layout_width="match_parent" android:layout_height="20dp" android:text="@{userVM.studentID}"><br>          <button android:id="@+id/findBtn" android:onclick="@{userVM.btnListener}" android:text="find Student ID" android:layout_width="wrap_content" android:layout_height="wrap_content"><br>    </button></linearlayout><br></layout><br>最后在View(Activity)中引入VM ：<br>public class WelcomeActivity extends AppCompatActivity {</p>
+<pre><code>@Override
+protected void onCreate(Bundle savedInstanceState) {
+
+    ActivityWelcomeBinding binding = DataBindingUtil.setContentView(this,R.layout.activity_welcome);
+
+    final StudentViewModel studentViewModel = new StudentViewModel();
+    binding.setUserVM(studentViewModel);
+}
+</code></pre><p>}<br>这样就完成了最基本的MVVM 栗子。</p>
+<p>现在我们的Activity看起来很清爽，不用再处理Click事件、以及updateUI了。</p>
+<p>总结</p>
+<p>各种MV+X模式的发展，实质上就是将Model与View之间以一种低耦合、低成本的方式进行控制。从Presenter到ViewModel的转变，借助了Data Binding的方式实现了双向的数据绑定，减少了视图模块和控制模块的耦合。随着Google Data Binding技术的不断更新完善，相信MVVM模式将在Android平台下应用得更加广泛。</p>
+<p>栗子仅仅是🌰</p>
+<p>上面仅仅是以最简单的方式来描述了一下 MV+X模式的实现流程，在实践项目里场景会复杂数倍。</p>
 
     
 
@@ -395,21 +527,13 @@
             <nav class="material-nav mdl-color-text--grey-50 mdl-cell mdl-cell--12-col">
     <!-- Prev Nav -->
     
-        <a href="/2017/02/15/Java在基类中添加注解对子类无效问题/" id="post_nav-newer" class="prev-content">
-            <button class="mdl-button mdl-js-button mdl-js-ripple-effect mdl-button--icon mdl-color--white mdl-color-text--grey-900" role="presentation">
-                <i class="material-icons">arrow_back</i>
-            </button>
-            &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-            新篇
-        </a>
-    
 
     <!-- Section Spacer -->
     <div class="section-spacer"></div>
 
     <!-- Next Nav -->
     
-        <a href="/2017/01/15/Start-2017/" id="post_nav-older" class="next-content">
+        <a href="/2017/03/17/Android源码中遇到的Utils/" id="post_nav-older" class="next-content">
             旧篇
             &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
             <button class="mdl-button mdl-js-button mdl-js-ripple-effect mdl-button--icon mdl-color--white mdl-color-text--grey-900" role="presentation">
