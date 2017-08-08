@@ -10,7 +10,7 @@
     
     <title>
         
-            过年前的最后一周 | 
+            启动过程分析 | 
         
         Moon &#39;s Blog
     </title>
@@ -48,7 +48,7 @@
     <!-- The Open Graph protocol -->
     <meta property="og:url" content="https://moonchenhaohui.github.io">
     <meta property="og:type" content="blog">
-    <meta property="og:title" content="过年前的最后一周 | Moon &#39;s Blog">
+    <meta property="og:title" content="启动过程分析 | Moon &#39;s Blog">
     <meta property="og:description" content="杭飘Android程序猿。">
 
     <!--[if lte IE 9]>
@@ -226,7 +226,7 @@
     </button>
 
     <ul class="post-toc-wrap mdl-menu mdl-menu--bottom-left mdl-js-menu mdl-js-ripple-effect" for="post-toc-trigger-btn">
-        <ol class="post-toc"><li class="post-toc-item post-toc-level-1"><a class="post-toc-link" href="#回家"><span class="post-toc-number">1.</span> <span class="post-toc-text">回家</span></a></li></ol>
+        
 
         <!--
         <li class="mdl-menu__item">
@@ -262,7 +262,7 @@
         
     
             <p class="article-headline-p">
-                过年前的最后一周
+                启动过程分析
             </p>
         </div>
 
@@ -281,7 +281,7 @@
     <!-- Author Name & Date -->
     <div>
         <strong>MoonChen</strong>
-        <span>1月 15, 2017</span>
+        <span>8月 08, 2017</span>
     </div>
 
     <div class="section-spacer"></div>
@@ -321,7 +321,7 @@
 
     <!-- Share Weibo -->
     
-        <a class="post_share-link" href="http://service.weibo.com/share/share.php?appkey=&title=过年前的最后一周&url=https://moonchenhaohui.github.io//2017/01/15/过年前的最后一周/index.html&pic=&searchPic=false&style=simple" target="_blank">
+        <a class="post_share-link" href="http://service.weibo.com/share/share.php?appkey=&title=启动过程分析&url=https://moonchenhaohui.github.io//2017/08/08/启动过程分析/index.html&pic=&searchPic=false&style=simple" target="_blank">
             <li class="mdl-menu__item">
                 分享到微博
             </li>
@@ -330,7 +330,7 @@
 
     <!-- Share Twitter -->
     
-        <a class="post_share-link" href="https://twitter.com/intent/tweet?text=过年前的最后一周&url=https://moonchenhaohui.github.io//2017/01/15/过年前的最后一周/index.html&via=MoonChen" target="_blank">
+        <a class="post_share-link" href="https://twitter.com/intent/tweet?text=启动过程分析&url=https://moonchenhaohui.github.io//2017/08/08/启动过程分析/index.html&via=MoonChen" target="_blank">
             <li class="mdl-menu__item">
                 分享到 Twitter
             </li>
@@ -339,7 +339,7 @@
 
     <!-- Share Facebook -->
     
-        <a class="post_share-link" href="https://www.facebook.com/sharer/sharer.php?u=https://moonchenhaohui.github.io//2017/01/15/过年前的最后一周/index.html" target="_blank">
+        <a class="post_share-link" href="https://www.facebook.com/sharer/sharer.php?u=https://moonchenhaohui.github.io//2017/08/08/启动过程分析/index.html" target="_blank">
             <li class="mdl-menu__item">
                 分享到 Facebook
             </li>
@@ -348,7 +348,7 @@
 
     <!-- Share Google+ -->
     
-        <a class="post_share-link" href="https://plus.google.com/share?url=https://moonchenhaohui.github.io//2017/01/15/过年前的最后一周/index.html" target="_blank">
+        <a class="post_share-link" href="https://plus.google.com/share?url=https://moonchenhaohui.github.io//2017/08/08/启动过程分析/index.html" target="_blank">
             <li class="mdl-menu__item">
                 分享到 Google+
             </li>
@@ -372,8 +372,8 @@
                 <!-- Post Content -->
                 <div id="post-content" class="markdown-Github mdl-color-text--grey-700 mdl-card__supporting-text fade out">
     
-        <h1 id="回家"><a href="#回家" class="headerlink" title="回家"></a>回家</h1><p>  周五就可以回家了，真开心。今年回家假期有15天。</p>
-
+        <p>先上一段关键方法调用栈：</p>
+<figure class="highlight"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div><div class="line">30</div><div class="line">31</div><div class="line">32</div><div class="line">33</div><div class="line">34</div><div class="line">35</div></pre></td><td class="code"><pre><div class="line">## Activity启动</div><div class="line">ContextImpl.startActivity(Intent intent)</div><div class="line">	startActivity(Intent intent, Bundle options)</div><div class="line">		mMainThread.getInstrumentation().execStartActivity(); [Instrumentation]</div><div class="line">			ActivityManagerNative.getDefault().startActivity(...); [ActivityManagerNative 实际实现类是：ActivityManagerService]</div><div class="line">				startActivityAsUser()</div><div class="line">					mStackSupervisor.startActivityMayWait) [ActivityStackSupervisor]</div><div class="line">						startActivityLocked()</div><div class="line">							startActivityUncheckedLocked() [启动模式判断]</div><div class="line">								## find activityStack [ActivityStack]</div><div class="line">								ActivityStack.resumeTopActivityLocked()</div><div class="line">									resumeTopActivityInnerLocked()</div><div class="line">										mStackSupervisor.startSpecificActivityLocked(next, true, true); [ActivityStackSupervisor]</div><div class="line">											realStartActivityLocked(r, app, andResume, checkConfig);</div><div class="line">												app.thread.scheduleLaunchActivity(xxx);  [app.thread-&gt;IApplicationThread]</div><div class="line">													# app.thread -&gt; ActivityThread中的ApplicationThread</div><div class="line">													sendMessage(H.LAUNCH_ACTIVITY, r);</div><div class="line">														## H -&gt; 主线程Handler</div><div class="line">														void handleMessage(Message msg) </div><div class="line">															 case LAUNCH_ACTIVITY:</div><div class="line">															 handleLaunchActivity(r, null);</div><div class="line">															 	Activity a = performLaunchActivity(r, customIntent);</div><div class="line">															 		1.[Activity]mInstrumentation.newActivity(cl, component.getClassName(), r.intent);</div><div class="line">															 			(Activity)cl.loadClass(className).newInstance(); [Instrumentation]</div><div class="line">															 		2.[Application] app = r.packageInfo.makeApplication(false, mInstrumentation);</div><div class="line">															 			mActivityThread.mInstrumentation.newApplication(cl, appClass, appContext); [[Instrumentation]]</div><div class="line">															 				newApplication(cl.loadClass(className), context);</div><div class="line">															 					(Application)clazz.newInstance()</div><div class="line">															 		3.[Context] appContext = createBaseContextForActivity(r, activity);</div><div class="line">															 			ContextImpl.createActivityContext(xxx);</div><div class="line">															 				new ContextImpl(mainThread...);</div><div class="line">															 		4.activity.attach(appContext, this, getInstrumentation()...);</div><div class="line">															 		5.mInstrumentation.callActivityOnCreate(activity, r.state, r.persistentState);</div><div class="line">															 			activity.performCreate(icicle, persistentState);</div><div class="line">															 			 onCreate(icicle);</div></pre></td></tr></table></figure>
     
 
     
@@ -395,21 +395,13 @@
             <nav class="material-nav mdl-color-text--grey-50 mdl-cell mdl-cell--12-col">
     <!-- Prev Nav -->
     
-        <a href="/2017/02/15/Java在基类中添加注解对子类无效问题/" id="post_nav-newer" class="prev-content">
-            <button class="mdl-button mdl-js-button mdl-js-ripple-effect mdl-button--icon mdl-color--white mdl-color-text--grey-900" role="presentation">
-                <i class="material-icons">arrow_back</i>
-            </button>
-            &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-            新篇
-        </a>
-    
 
     <!-- Section Spacer -->
     <div class="section-spacer"></div>
 
     <!-- Next Nav -->
     
-        <a href="/2017/01/15/Start-2017/" id="post_nav-older" class="next-content">
+        <a href="/2017/08/07/Android消息机制-Handler、Looper、MessageQueue/" id="post_nav-older" class="next-content">
             旧篇
             &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
             <button class="mdl-button mdl-js-button mdl-js-ripple-effect mdl-button--icon mdl-color--white mdl-color-text--grey-900" role="presentation">
